@@ -9,7 +9,7 @@ function ThreeNavbar(props) {
       <Button
         className=""
         onPress={() => {
-          navigate("/learning-platform/home");
+          navigate("/mode/three/student/view/9/55176147");
         }}
       >
         Home

@@ -12,7 +12,10 @@ import TeacherView from "./pages/One/TeacherView";
 import ViewMyProfile from "./pages/Two/ViewMyProfile";
 import Login from "./pages/Two/Login";
 import StudentView from "./pages/Two/StudentView";
-import LearningPlatformHome from "./pages/Three/LearningPlatformHome";
+import StudentViewThree from "./pages/Three/StudentViewThree";
+import LearningPlatformHome from "./pages/Four/LearningPlatformHome";
+import ContentCreation from "./pages/Five/ContentCreation";
+import ContentSearch from "./pages/Five/ContentSearch";
 
 function App() {
   const location = useLocation();
@@ -41,10 +44,26 @@ function App() {
           element={<StudentView />}
         />
 
+        {/* three */}
+        <Route
+          path="/mode/three/student/view/:selectedClass/:studentId"
+          element={<StudentViewThree />}
+        />
+
         {/* four */}
         <Route
           path="/mode/four/learning-platform/home"
           element={<LearningPlatformHome />}
+        />
+
+        {/* five */}
+        <Route
+          path="/mode/five/content-platform/create"
+          element={<ContentCreation />}
+        />
+        <Route
+          path="/mode/five/content-platform/search"
+          element={<ContentSearch />}
         />
       </Routes>
     </AppContextProvider>

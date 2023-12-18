@@ -2,28 +2,28 @@ import React from "react";
 import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 
-function FourNavbar(props) {
+function FiveNavbar(props) {
   const navigate = useNavigate();
   return (
     <>
       <Button
         className=""
         onPress={() => {
-          navigate("/mode/four/learning-platform/home");
+          navigate("/mode/five/content-platform/create");
         }}
       >
-        Home
+        Create Content
       </Button>
       <Button
-        className="bg-black/50"
+        className=""
         onPress={() => {
-          navigate("/mode/two/view-my-profile/0");
+          navigate("/mode/five/content-platform/search");
         }}
       >
-        Verify a Certificate
+        Search Content
       </Button>
     </>
   );
 }
 
-export default FourNavbar;
+export default FiveNavbar;

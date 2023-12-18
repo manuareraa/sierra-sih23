@@ -5,6 +5,8 @@ import { useAppContext } from "../utils/AppContext";
 import OneNavbar from "./navbars/OneNavbar";
 import TwoNavbar from "./navbars/TwoNavbar";
 import ThreeNavbar from "./navbars/ThreeNavbar";
+import FourNavbar from "./navbars/FourNavbar";
+import FiveNavbar from "./navbars/FiveNavbar";
 
 function Navbar(props) {
   const navigate = useNavigate();
@@ -48,12 +50,12 @@ function Navbar(props) {
           ) : mode === 4 ? (
             <>
               {/* enhanced learning platform */}
-              <OneNavbar />
+              <FourNavbar />
             </>
           ) : mode === 5 ? (
             <>
               {/* teacher's planning and content creation platform */}
-              <OneNavbar />
+              <FiveNavbar />
             </>
           ) : mode === 6 ? (
             <>
@@ -77,11 +79,11 @@ function Navbar(props) {
                 if (mode + 1 === 2) {
                   navigate("/mode/two/login");
                 } else if (mode + 1 === 3) {
-                  navigate("/");
+                  navigate("/mode/three/student/view/9/55176147");
                 } else if (mode + 1 === 4) {
                   navigate("/mode/four/learning-platform/home");
                 } else if (mode + 1 === 5) {
-                  navigate("/planning");
+                  navigate("/mode/five/content-platform/create");
                 } else if (mode + 1 === 6) {
                   navigate("/resources");
                 } else if (mode + 1 === 7) {
