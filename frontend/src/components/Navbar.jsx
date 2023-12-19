@@ -7,6 +7,10 @@ import TwoNavbar from "./navbars/TwoNavbar";
 import ThreeNavbar from "./navbars/ThreeNavbar";
 import FourNavbar from "./navbars/FourNavbar";
 import FiveNavbar from "./navbars/FiveNavbar";
+import SixNavbar from "./navbars/SixNavbar";
+import ZeroNavbar from "./navbars/ZeroNavbar";
+
+import sierraIcon from "../assets/img/Shc.png";
 
 function Navbar(props) {
   const navigate = useNavigate();
@@ -22,11 +26,15 @@ function Navbar(props) {
             navigate("/");
           }}
         >
-          <div>
-            <p className="text-3xl">Sierra</p>
+          <div className="flex flex-row items-center gap-x-4">
+            {/* <img src={sierraIcon} className="w-12 h-16"></img> */}
+            <div>
+              <p className="text-6xl font-extrabold">Sierra</p>
+            </div>
           </div>
+
           <div>
-            <p className="text-xs">Enhanced Edu Portal</p>
+            <p className="text-sm">Enhanced Education Portal</p>
           </div>
         </div>
 
@@ -60,14 +68,16 @@ function Navbar(props) {
           ) : mode === 6 ? (
             <>
               {/* teachers resources sharing platform */}
-              <OneNavbar />
+              <SixNavbar />
             </>
           ) : mode === 7 ? (
             <>
               {/* smart iot integration */}
               <OneNavbar />
             </>
-          ) : null}
+          ) : (
+            <ZeroNavbar />
+          )}
           <Button
             className="text-white bg-black"
             onPress={() => {
@@ -85,7 +95,7 @@ function Navbar(props) {
                 } else if (mode + 1 === 5) {
                   navigate("/mode/five/content-platform/create");
                 } else if (mode + 1 === 6) {
-                  navigate("/resources");
+                  navigate("/mode/five/content-platform/search");
                 } else if (mode + 1 === 7) {
                   navigate("/iot");
                 } else if (mode + 1 === 1) {

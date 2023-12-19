@@ -2,28 +2,28 @@ import React from "react";
 import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 
-function OneNavbar(props) {
+function SixNavbar(props) {
   const navigate = useNavigate();
   return (
     <>
       <Button
         className=""
         onPress={() => {
-          navigate("/mode/one/recruit");
+          navigate("/");
         }}
       >
-        New Recruit
+        Home
       </Button>
-      <Button
+      {/* <Button
         className=""
         onPress={() => {
-          navigate("/mode/one/teachers");
+          navigate("/mode/five/content-platform/search");
         }}
       >
-        Teachers
-      </Button>
+        Search Content
+      </Button> */}
     </>
   );
 }
 
-export default OneNavbar;
+export default SixNavbar;

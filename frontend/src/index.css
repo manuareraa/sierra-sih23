@@ -1,3 +1,34 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.custom-hero-bg {
+  background-image: url("./assets/img/mclass.jpg");
+  background-size: cover; /* Adjust as needed */
+  background-repeat: no-repeat; /* Adjust as needed */
+}
+
+/* Width and Height */
+::-webkit-scrollbar {
+  width: 10px; /* width of the vertical scrollbar */
+  height: 10px; /* height of the horizontal scrollbar */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #fff; /* color of the track */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #000; /* color of the scroll thumb */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #999999; /* color of the scroll thumb on hover */
+}
