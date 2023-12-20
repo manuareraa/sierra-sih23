@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../utils/AppContext";
 import { useParams } from "react-router-dom";
@@ -16,10 +16,11 @@ import {
   studentsTen,
   studentsEleven,
 } from "../../data/students";
+import toast from "react-hot-toast";
 
 function ViewMyProfile(props) {
   const navigate = useNavigate();
-  const { appState, mode, setMode } = useAppContext();
+  const { appState, mode, setMode, t } = useAppContext();
   const { teacherId } = useParams();
   const [teacher, setTeacher] = useState({});
   const [school, setSchool] = useState("");
@@ -61,7 +62,7 @@ function ViewMyProfile(props) {
     <div className="flex flex-col items-center justify-center w-full h-full p-8 py-10 ">
       {/* title */}
       <div className="">
-        <p className="my-4 text-xl font-bold">Your Profile</p>
+        <p className="my-4 text-xl font-bold">{t("Your Profile")}</p>
       </div>
       <div className="divider"></div>
 
@@ -73,15 +74,15 @@ function ViewMyProfile(props) {
           <div className="flex flex-row gap-x-8">
             <img src={tProfileIcon} className="w-40 h-40" />
             <div className="grid grid-cols-2 gap-y-2 gap-x-4 w-fit">
-              Name: <span className="font-bold">{teacher.name}</span>
-              Department:{" "}
+              {t("Name")}: <span className="font-bold">{teacher.name}</span>
+              {t("Department")}:{" "}
               <span className="font-bold">{teacher.department}</span>
               DOB: <span className="font-bold">{teacher.dob}</span>
-              Experience:{" "}
+              {t("Experience")}:{" "}
               <span className="font-bold">
                 {teacher.yearsOfExperience} Years
               </span>
-              Institution: <span className="font-bold">{school}</span>
+              {t("Institution")}: <span className="font-bold">{school}</span>
             </div>
           </div>
 
@@ -104,7 +105,7 @@ function ViewMyProfile(props) {
                     ></path>
                   </svg>
                 </div>
-                <div className="stat-title">Current Reputation</div>
+                <div className="stat-title">{t("Current Reputation")}</div>
                 <div className="stat-value text-primary">
                   {teacher.reputation}
                 </div>
@@ -144,7 +145,7 @@ function ViewMyProfile(props) {
           {/* skillset container */}
           <div className="flex flex-col">
             <div className="flex flex-col items-center justify-center py-6">
-              <p className="text-xl font-bold">Your Skillset</p>
+              <p className="text-xl font-bold">{t("Your Skillset")}</p>
             </div>
 
             {/* skillset */}
@@ -153,7 +154,7 @@ function ViewMyProfile(props) {
                 {/* one-to-one */}
                 <div className="stat">
                   <div className="stat-figure text-primary">{/* svg */}</div>
-                  <div className="stat-title">One-to-One</div>
+                  <div className="stat-title">{t("One-to-One")}</div>
                   <div className="stat-value text-primary">
                     {teacher.reputation}
                   </div>
@@ -163,7 +164,7 @@ function ViewMyProfile(props) {
                 {/* project-based */}
                 <div className="stat">
                   <div className="stat-figure text-primary">{/* svg */}</div>
-                  <div className="stat-title">Project Based</div>
+                  <div className="stat-title">{t("Project Based")}</div>
                   <div className="stat-value text-primary">
                     {teacher.reputation}
                   </div>
@@ -173,7 +174,7 @@ function ViewMyProfile(props) {
                 {/* online */}
                 <div className="stat">
                   <div className="stat-figure text-primary">{/* svg */}</div>
-                  <div className="stat-title">Online</div>
+                  <div className="stat-title">{t("Online")}</div>
                   <div className="stat-value text-primary">
                     {teacher.tokenId}
                   </div>
@@ -188,7 +189,7 @@ function ViewMyProfile(props) {
           {/* class container */}
           <div className="flex flex-col">
             <div className="flex flex-col items-center justify-center py-6">
-              <p className="text-xl font-bold">Manage Your Classes</p>
+              <p className="text-xl font-bold">{t("Manage Your Classes")}</p>
             </div>
 
             {/* classes */}
@@ -201,7 +202,7 @@ function ViewMyProfile(props) {
                     setSelectedClass(9);
                   }}
                 >
-                  <div className="stat-title">Class</div>
+                  <div className="stat-title">{t("Class")}</div>
                   <div className="stat-value">9th</div>
                   {/* <div className="stat-desc">21% more than last month</div> */}
                 </div>
@@ -213,7 +214,7 @@ function ViewMyProfile(props) {
                     setSelectedClass(10);
                   }}
                 >
-                  <div className="stat-title">Class</div>
+                  <div className="stat-title">{t("Class")}</div>
                   <div className="stat-value">10th</div>
                   {/* <div className="stat-desc">21% more than last month</div> */}
                 </div>
@@ -225,7 +226,7 @@ function ViewMyProfile(props) {
                     setSelectedClass(6);
                   }}
                 >
-                  <div className="stat-title">Class</div>
+                  <div className="stat-title">{t("Class")}</div>
                   <div className="stat-value">6th</div>
                   {/* <div className="stat-desc">21% more than last month</div> */}
                 </div>
@@ -380,14 +381,14 @@ function ViewMyProfile(props) {
         {/* view class container */}
         <div className="flex flex-col items-center justify-center gap-y-4">
           <div className="flex flex-col items-center justify-center py-6">
-            <p className="text-xl font-bold">View Your Class</p>
+            <p className="text-xl font-bold">{t("View Your Class")}</p>
           </div>
 
           {/* class stats container */}
           <div className="mb-8">
             {selectedClass === 0 ? (
               <div className="flex flex-col items-center justify-center gap-y-4">
-                <p className="font- text-md">No Class Selected</p>
+                <p className="font- text-md">{t("No Class Selected")}</p>
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center">
@@ -396,21 +397,21 @@ function ViewMyProfile(props) {
                 {/* stats */}
                 <div className="shadow stats">
                   <div className="stat">
-                    <div className="stat-title">Class</div>
+                    <div className="stat-title">{t("Class")}</div>
                     <div className="stat-value">
                       {selectedClass === 0 ? "None" : selectedClass}th
                     </div>
                   </div>
 
                   <div className="stat">
-                    <div className="stat-title">Strength</div>
+                    <div className="stat-title">{t("Strength")}</div>
                     <div className="stat-value">
                       {selectedClass === 0 ? "None" : students.length}
                     </div>
                   </div>
 
                   <div className="stat">
-                    <div className="stat-title">Avg. CARS Score</div>
+                    <div className="stat-title">Avg. CARS {t("Score")}</div>
                     <div className="stat-value">
                       {selectedClass === 0
                         ? "None"
@@ -426,7 +427,7 @@ function ViewMyProfile(props) {
                   </div>
 
                   <div className="stat">
-                    <div className="stat-title">Highest</div>
+                    <div className="stat-title">{t("Highest")}</div>
                     <div className="stat-value">
                       {selectedClass === 0
                         ? "None"
@@ -441,7 +442,7 @@ function ViewMyProfile(props) {
                   </div>
 
                   <div className="stat">
-                    <div className="stat-title">Lowest</div>
+                    <div className="stat-title">{t("Lowest")}</div>
                     <div className="stat-value">
                       {selectedClass === 0
                         ? "None"
@@ -467,17 +468,17 @@ function ViewMyProfile(props) {
                 <thead>
                   <tr>
                     <th></th>
-                    <th>Name</th>
-                    <th>Class</th>
-                    <th>Student ID</th>
+                    <th>{t("Name")}</th>
+                    <th>{t("Class")}</th>
+                    <th>{t("Student")} ID</th>
                     <th>DOB</th>
-                    <th>Gender</th>
-                    <th>Age</th>
+                    <th>{t("Gender")}</th>
+                    <th>{t("Age")}</th>
                     <th>
-                      <p className="font-bold">CARS Score</p>
+                      <p className="font-bold">CARS {t("Score")}</p>
                     </th>
                     <th>SBT ID</th>
-                    <th>View</th>
+                    <th>{t("View")}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -520,7 +521,7 @@ function ViewMyProfile(props) {
                               );
                             }}
                           >
-                            View Profile
+                            {t("View Profile")}
                           </Button>
                         </td>
                       </tr>
@@ -540,7 +541,9 @@ function ViewMyProfile(props) {
           {/* project based parent container */}
           <div className="flex flex-col w-full">
             <div className="flex flex-col items-center justify-center py-6">
-              <p className="text-xl font-bold">Manage Student Collaboration</p>
+              <p className="text-xl font-bold">
+                {t("Manage Student Collaboration")}
+              </p>
             </div>
 
             {/* title container */}
@@ -549,7 +552,7 @@ function ViewMyProfile(props) {
                 {/* title */}
                 <div className="items-center justify-start w-full">
                   <p className="font-bold text-black text-md">
-                    Project-based Learning
+                    {t("Project-based Learning")}
                   </p>
                 </div>
               </div>
@@ -562,14 +565,14 @@ function ViewMyProfile(props) {
                 <thead>
                   <tr>
                     <th></th>
-                    <th>Name</th>
-                    <th>CARS Score</th>
-                    <th>Project</th>
-                    <th>Project Status</th>
+                    <th>{t("Name")}</th>
+                    <th>CARS {t("Score")}</th>
+                    <th>{t("Project")}</th>
+                    <th>{t("Project Status")}</th>
                     {/* <th>EduLog</th> */}
-                    <th>Generate & Assign</th>
-                    <th>Project</th>
-                    <th>Online</th>
+                    <th>{t("Generate & Assign")}</th>
+                    <th>{t("Project")}</th>
+                    <th>{t("Online")}</th>
                     <th>1-to-1</th>
                   </tr>
                 </thead>
@@ -580,7 +583,7 @@ function ViewMyProfile(props) {
                     <td>Manan Gupta</td>
                     <td>5.67</td>
                     <td>--</td>
-                    <td>Not Assigned</td>
+                    <td>{t("Not Assigned")}</td>
                     {/* <td>
                       <Button
                         size="sm"
@@ -600,14 +603,14 @@ function ViewMyProfile(props) {
                           navigate("/mode/two/student/view/9/1");
                         }}
                       >
-                        Generate & Assign
+                        {t("Generate & Assign")}
                       </Button>
                     </td>
                     <td>
-                      <Button size="sm">To Project</Button>
+                      <Button size="sm">{t("To Project")}</Button>
                     </td>
                     <td>
-                      <Button size="sm">To Online</Button>
+                      <Button size="sm">{t("To Online")}</Button>
                     </td>
                     <td>
                       <Button size="sm">To 1-to-1</Button>
@@ -639,14 +642,14 @@ function ViewMyProfile(props) {
                           navigate("/mode/two/student/view/9/2");
                         }}
                       >
-                        Re-Generate & Assign
+                        {t("Re-Generate & Assign")}
                       </Button>
                     </td>
                     <td>
-                      <Button size="sm">To Project</Button>
+                      <Button size="sm">{t("To Project")}</Button>
                     </td>
                     <td>
-                      <Button size="sm">To Online</Button>
+                      <Button size="sm">{t("To Online")}</Button>
                     </td>
                     <td>
                       <Button size="sm">To 1-to-1</Button>
@@ -658,7 +661,7 @@ function ViewMyProfile(props) {
                     <td>Disha Mehta</td>
                     <td>8.01</td>
                     <td>--</td>
-                    <td>Not Assigned</td>
+                    <td>{t("Not Assigned")}</td>
                     {/* <td>
                       <Button
                         size="sm"
@@ -678,14 +681,14 @@ function ViewMyProfile(props) {
                           navigate("/mode/two/student/view/9/3");
                         }}
                       >
-                        Generate & Assign
+                        {t("Generate & Assign")}
                       </Button>
                     </td>
                     <td>
-                      <Button size="sm">To Project</Button>
+                      <Button size="sm">{t("To Project")}</Button>
                     </td>
                     <td>
-                      <Button size="sm">To Online</Button>
+                      <Button size="sm">{t("To Online")}</Button>
                     </td>
                     <td>
                       <Button size="sm">To 1-to-1</Button>
@@ -704,7 +707,7 @@ function ViewMyProfile(props) {
                 {/* title */}
                 <div className="items-center justify-start w-full">
                   <p className="font-bold text-black text-md">
-                    Online Learning
+                    {t("Online Learning")}
                   </p>
                 </div>
               </div>
@@ -717,12 +720,12 @@ function ViewMyProfile(props) {
                 <thead>
                   <tr>
                     <th></th>
-                    <th>Name</th>
-                    <th>CARS Score</th>
-                    <th>Course</th>
-                    <th>Course Status</th>
+                    <th>{t("Name")}</th>
+                    <th>CARS {t("Score")}</th>
+                    <th>{t("Course")}</th>
+                    <th>{t("Course Status")}</th>
                     {/* <th>EduLog</th> */}
-                    <th>Online</th>
+                    <th>{t("Online")}</th>
                     <th>1-to-1</th>
                   </tr>
                 </thead>
@@ -746,10 +749,10 @@ function ViewMyProfile(props) {
                       </Button>
                     </td> */}
                     <td>
-                      <Button size="sm">To Project</Button>
+                      <Button size="sm">{t("To Project")}</Button>
                     </td>
                     <td>
-                      <Button size="sm">To Online</Button>
+                      <Button size="sm">{t("To Online")}</Button>
                     </td>
                     <td>
                       <Button size="sm">To 1-to-1</Button>
@@ -774,10 +777,10 @@ function ViewMyProfile(props) {
                       </Button>
                     </td> */}
                     <td>
-                      <Button size="sm">To Project</Button>
+                      <Button size="sm">{t("To Project")}</Button>
                     </td>
                     <td>
-                      <Button size="sm">To Online</Button>
+                      <Button size="sm">{t("To Online")}</Button>
                     </td>
                     <td>
                       <Button size="sm">To 1-to-1</Button>
@@ -802,10 +805,10 @@ function ViewMyProfile(props) {
                       </Button>
                     </td> */}
                     <td>
-                      <Button size="sm">To Project</Button>
+                      <Button size="sm">{t("To Project")}</Button>
                     </td>
                     <td>
-                      <Button size="sm">To Online</Button>
+                      <Button size="sm">{t("To Online")}</Button>
                     </td>
                     <td>
                       <Button size="sm">To 1-to-1</Button>
@@ -824,7 +827,7 @@ function ViewMyProfile(props) {
                 {/* title */}
                 <div className="items-center justify-start w-full">
                   <p className="font-bold text-black text-md">
-                    1-to-1 Learning
+                    1-to-1 {t("Learning")}
                   </p>
                 </div>
               </div>
@@ -837,13 +840,13 @@ function ViewMyProfile(props) {
                 <thead>
                   <tr>
                     <th></th>
-                    <th>Name</th>
-                    <th>CARS Score</th>
-                    <th>Class</th>
-                    <th>Periods</th>
+                    <th>{t("Name")}</th>
+                    <th>CARS {t("Score")}</th>
+                    <th>{t("Class")}</th>
+                    <th>{t("Periods")}</th>
                     {/* <th>EduLog</th> */}
-                    <th>Project</th>
-                    <th>Online</th>
+                    <th>{t("Project")}</th>
+                    <th>{t("Online")}</th>
                     <th>1-to-1</th>
                   </tr>
                 </thead>
@@ -867,10 +870,10 @@ function ViewMyProfile(props) {
                       </Button>
                     </td> */}
                     <td>
-                      <Button size="sm">To Project</Button>
+                      <Button size="sm">{t("To Project")}</Button>
                     </td>
                     <td>
-                      <Button size="sm">To Online</Button>
+                      <Button size="sm">{t("To Online")}</Button>
                     </td>
                     <td>
                       <Button size="sm">To 1-to-1</Button>
@@ -895,10 +898,10 @@ function ViewMyProfile(props) {
                       </Button>
                     </td> */}
                     <td>
-                      <Button size="sm">To Project</Button>
+                      <Button size="sm">{t("To Project")}</Button>
                     </td>
                     <td>
-                      <Button size="sm">To Online</Button>
+                      <Button size="sm">{t("To Online")}</Button>
                     </td>
                     <td>
                       <Button size="sm">To 1-to-1</Button>
@@ -923,10 +926,10 @@ function ViewMyProfile(props) {
                       </Button>
                     </td> */}
                     <td>
-                      <Button size="sm">To Project</Button>
+                      <Button size="sm">{t("To Project")}</Button>
                     </td>
                     <td>
-                      <Button size="sm">To Online</Button>
+                      <Button size="sm">{t("To Online")}</Button>
                     </td>
                     <td>
                       <Button size="sm">To 1-to-1</Button>
@@ -941,7 +944,263 @@ function ViewMyProfile(props) {
         {/* divider */}
         <div className="mt-6 divider"></div>
 
+        {/* title container */}
+        <div className="flex flex-row w-full px-6 py-3 bg-black/10 rounded-xl gap-x-3">
+          <div className="flex flex-col gap-y-4">
+            {/* title */}
+            <div className="items-center justify-start w-full">
+              <p className="font-bold text-black text-md">
+                {t("Available Chapters for Class")} 6
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* chapters grid */}
+        <div className="grid w-full grid-cols-4 grid-rows-2 my-6 gap-x-8 gap-y-8">
+          <div className="flex flex-row items-center justify-between p-4 bg-blue-500 rounded-lg gap-x-2">
+            <div className="flex flex-col gap-y-">
+              <p className="text-xs font-bold text-white">{t("Chapter")}: 1</p>
+              <p className="text-lg font-bold text-white">Components of Food</p>
+            </div>
+            <div>
+              <Button
+                className="bg-white"
+                onClick={() =>
+                  document.getElementById("my_modal_1").showModal()
+                }
+              >
+                {t("View")}
+              </Button>
+            </div>
+          </div>
+
+          <div className="flex flex-row items-center justify-between p-4 bg-blue-500 rounded-lg gap-x-2">
+            <div className="flex flex-col gap-y-">
+              <p className="text-xs font-bold text-white">{t("Chapter")}: 1</p>
+              <p className="text-lg font-bold text-white">Components of Food</p>
+            </div>
+            <div>
+              <Button className="bg-white">{t("View")}</Button>
+            </div>
+          </div>
+
+          <div className="flex flex-row items-center justify-between p-4 bg-blue-500 rounded-lg gap-x-2">
+            <div className="flex flex-col gap-y-">
+              <p className="text-xs font-bold text-white">{t("Chapter")}: 1</p>
+              <p className="text-lg font-bold text-white">Components of Food</p>
+            </div>
+            <div>
+              <Button className="bg-white">{t("View")}</Button>
+            </div>
+          </div>
+
+          <div className="flex flex-row items-center justify-between p-4 bg-blue-500 rounded-lg gap-x-2">
+            <div className="flex flex-col gap-y-">
+              <p className="text-xs font-bold text-white">{t("Chapter")}: 1</p>
+              <p className="text-lg font-bold text-white">Components of Food</p>
+            </div>
+            <div>
+              <Button className="bg-white">{t("View")}</Button>
+            </div>
+          </div>
+
+          <div className="flex flex-row items-center justify-between p-4 bg-blue-500 rounded-lg gap-x-2">
+            <div className="flex flex-col gap-y-">
+              <p className="text-xs font-bold text-white">{t("Chapter")}: 1</p>
+              <p className="text-lg font-bold text-white">Components of Food</p>
+            </div>
+            <div>
+              <Button className="bg-white">{t("View")}</Button>
+            </div>
+          </div>
+
+          <div className="flex flex-row items-center justify-between p-4 bg-blue-500 rounded-lg gap-x-2">
+            <div className="flex flex-col gap-y-">
+              <p className="text-xs font-bold text-white">{t("Chapter")}: 1</p>
+              <p className="text-lg font-bold text-white">Components of Food</p>
+            </div>
+            <div>
+              <Button className="bg-white">{t("View")}</Button>
+            </div>
+          </div>
+
+          <div className="flex flex-row items-center justify-between p-4 bg-blue-500 rounded-lg gap-x-2">
+            <div className="flex flex-col gap-y-">
+              <p className="text-xs font-bold text-white">{t("Chapter")}: 1</p>
+              <p className="text-lg font-bold text-white">Components of Food</p>
+            </div>
+            <div>
+              <Button className="bg-white">{t("View")}</Button>
+            </div>
+          </div>
+
+          <div className="flex flex-row items-center justify-between p-4 bg-blue-500 rounded-lg gap-x-2">
+            <div className="flex flex-col gap-y-">
+              <p className="text-xs font-bold text-white">{t("Chapter")}: 1</p>
+              <p className="text-lg font-bold text-white">Components of Food</p>
+            </div>
+            <div>
+              <Button className="bg-white">{t("View")}</Button>
+            </div>
+          </div>
+        </div>
+
         <div></div>
+
+        {/* Open the modal using document.getElementById('ID').showModal() method */}
+        <dialog id="my_modal_1" className="modal ">
+          <div className="w-11/12 max-w-5xl modal-box">
+            <h3 className="text-2xl font-bold">Course Content</h3>
+            <div className="divider"></div>
+            <div className="flex flex-col gap-y-4">
+              <div className="">
+                <p className="text-lg font-bold underline">Introduction:</p>
+                <p className="">
+                  In lower classes, we made lists of the food items that we eat.
+                  We also identified food items eaten in different parts of
+                  India and marked these on its map. A meal could consist of
+                  chapati, dal and brinjal curry. Another may be rice, sambar
+                  and a vegetable preparation of lady’s finger (bhindi). Yet
+                  another meal could be appam, fish curry and vegetables. curd,
+                  butter milk and pickles. Some examples of meals from different
+                  regions are given in Table 1.1. Select food items and enter
+                  these in Table 1.1. Sometimes, we may not really have all this
+                  variety in our meals. If we are travelling, we may eat
+                  whatever is available on the way. It may not be possible for
+                  some of us, to eat such a variety of items, most of the time.
+                  There must be some reason though, why meals usually consist of
+                  such a distribution. Do you think that our body needs
+                  different kinds of food for some special purpose?
+                </p>
+              </div>
+
+              <div className="">
+                <p className="text-lg font-bold underline">
+                  What do different food items containe?
+                </p>
+                <p>
+                  We know that each dish is usually made up of one or more
+                  ingredients, which we get from plants or animals. These
+                  ingredients contain some components that are needed by our
+                  body. These components are called nutrients. The major
+                  nutrients in our food are named carbohydrates, proteins, fats,
+                  vitamins and minerals. In addition, food contains dietary
+                  fibres and water which are also needed by our body. Do all
+                  foods contain all these nutrients? With some simple methods we
+                  can test whether cooked food or a raw ingredient contains one
+                  or more of these nutrients. The tests for presence of
+                  carbohydrates, proteins and fats are simpler to do as compared
+                  to the tests for other nutrients.
+                </p>
+              </div>
+
+              <div>
+                <p className="text-lg font-bold underline">
+                  What do different food items containe?
+                </p>
+                <p>
+                  Carbohydrates mainly provide energy to our body. Fats also
+                  give us energy. In fact, fats give much more energy as
+                  compared to the same amount of carbohydrates. Foods containing
+                  fats and carbohydrates are also called ‘energy giving foods’
+                  (Fig. 1.3 and Fig. 1.4). Proteins are needed for the growth
+                  and repair of our body. Foods proteins are often called ‘body
+                  building foods’ (Fig 1.5). Vitamins help in protecting our
+                  body against diseases. Vitamins also help in keeping our eyes,
+                  bones, teeth and gums healthy. Vitamins are of different kinds
+                  known by different names. Some of these are Vitamin A, Vitamin
+                  C, Vitamin D, Vitamin E and K. There is also a group of
+                  vitamins called Vitamin B-complex. Our body needs all types of
+                  vitamins in small quantities. Vitamin A keeps our skin and
+                  eyes healthy. Vitamin C helps body to fight against many
+                  diseases. Vitamin D helps our body to use calcium for bones
+                  and teeth.
+                </p>
+              </div>
+
+              {/* video links */}
+              <div className="flex flex-col mt-4 gapy-4">
+                <div className="mb-4">
+                  <p className="text-xl font-bold">Add Video References</p>
+                </div>
+                <div className="flex flex-col gap-y-2">
+                  <Input label="Add Youtube Video Link"></Input>
+                  <Input label="Add Youtube Video Link"></Input>
+                  <Input label="Add Youtube Video Link"></Input>
+                </div>
+              </div>
+
+              {/* docs */}
+              <div className="flex flex-row gap-x-36">
+                <div className="flex flex-col mt-4 gap-y-4">
+                  <div className="">
+                    <p className="text-xl font-bold">
+                      Upload Documents for References
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-y-2">
+                    <input
+                      type="file"
+                      className="w-full max-w-xs file-input file-input-bordered"
+                      multiple={true}
+                    />
+                    <input
+                      type="file"
+                      className="w-full max-w-xs file-input file-input-bordered"
+                      multiple={true}
+                    />
+                    <input
+                      type="file"
+                      className="w-full max-w-xs file-input file-input-bordered"
+                      multiple={true}
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col mt-4 gap-y-4">
+                  <div className="mb-">
+                    <p className="text-xl font-bold">
+                      Upload Images for References
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-y-2">
+                    <input
+                      type="file"
+                      className="w-full max-w-xs file-input file-input-bordered"
+                      multiple={true}
+                    />
+                    <input
+                      type="file"
+                      className="w-full max-w-xs file-input file-input-bordered"
+                      multiple={true}
+                    />
+                    <input
+                      type="file"
+                      className="w-full max-w-xs file-input file-input-bordered"
+                      multiple={true}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-row modal-action">
+              <form method="dialog">
+                <div className="flex flex-row gap-x-4">
+                  <button
+                    className="text-white bg-blue-500 btn"
+                    onClick={() =>
+                      toast.success("References updated Successfully")
+                    }
+                  >
+                    Save
+                  </button>
+                  <button className="btn">Close</button>
+                </div>
+                {/* if there is a button in form, it will close the modal */}
+              </form>
+            </div>
+          </div>
+        </dialog>
       </div>
     </div>
   );

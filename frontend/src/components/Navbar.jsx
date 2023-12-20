@@ -14,7 +14,7 @@ import sierraIcon from "../assets/img/Shc.png";
 
 function Navbar(props) {
   const navigate = useNavigate();
-  const { appState, mode, setMode } = useAppContext();
+  const { appState, mode, setMode, changeLang, t } = useAppContext();
   return (
     <>
       <div className="flex flex-row items-center justify-between p-6 shadow-lg gap-x-8 hover:cursor-pointer">
@@ -29,12 +29,12 @@ function Navbar(props) {
           <div className="flex flex-row items-center gap-x-4">
             {/* <img src={sierraIcon} className="w-12 h-16"></img> */}
             <div>
-              <p className="text-6xl font-extrabold">Sierra</p>
+              <p className="text-6xl font-extrabold">{t("Sierra")}</p>
             </div>
           </div>
 
           <div>
-            <p className="text-sm">Enhanced Education Portal</p>
+            <p className="text-sm">{t("Enhanced Education Portal")}</p>
           </div>
         </div>
 
@@ -71,10 +71,7 @@ function Navbar(props) {
               <SixNavbar />
             </>
           ) : mode === 7 ? (
-            <>
-              {/* smart iot integration */}
-              <OneNavbar />
-            </>
+            <ZeroNavbar />
           ) : (
             <ZeroNavbar />
           )}
@@ -100,41 +97,71 @@ function Navbar(props) {
                   navigate("/iot");
                 } else if (mode + 1 === 1) {
                   navigate("/mode/one/recruit");
+                } else if (mode === 0) {
+                  navigate("/");
                 }
               }
             }}
           >
             Switch Mode ({mode})
           </Button>
+          <Button
+            className="text-white bg-black"
+            onPress={() => {
+              changeLang("hi");
+            }}
+          >
+            Change To हिंदी
+          </Button>
+          <Button
+            className="text-white bg-black"
+            onPress={() => {
+              changeLang("en");
+            }}
+          >
+            Change To English
+          </Button>
+          <Button
+            className="text-white bg-black"
+            onPress={() => {
+              navigate("/");
+            }}
+          >
+            Home
+          </Button>
         </div>
       </div>
 
       {mode === 1 ? (
         <div className="flex flex-col items-center justify-center w-full py-1 bg-black">
-          <p className="text-sm text-white">Government Authority Portal</p>
+          <p className="text-sm text-white">
+            {t("Government Authority Portal")}
+          </p>
         </div>
       ) : mode === 2 ? (
         <div className="flex flex-col items-center justify-center w-full py-1 bg-black">
-          <p className="text-sm text-white">Teacher's Profile</p>
+          <p className="text-sm text-white">{t("Teacher's Profile")}</p>
         </div>
       ) : mode === 3 ? (
         <div className="flex flex-col items-center justify-center w-full py-1 bg-black">
-          <p className="text-sm text-white">Student's Profile</p>
+          <p className="text-sm text-white">{t("Student's Profile")}</p>
         </div>
       ) : mode === 4 ? (
         <div className="flex flex-col items-center justify-center w-full py-1 bg-black">
-          <p className="text-sm text-white">Enhanced Learning Platform</p>
+          <p className="text-sm text-white">
+            {t("Enhanced Learning Platform")}
+          </p>
         </div>
       ) : mode === 5 ? (
         <div className="flex flex-col items-center justify-center w-full py-1 bg-black">
           <p className="text-sm text-white">
-            Teacher's Planning and Content Creation Platform
+            {t("Teacher's Planning and Content Creation Platform")}
           </p>
         </div>
       ) : mode === 6 ? (
         <div className="flex flex-col items-center justify-center w-full py-1 bg-black">
           <p className="text-sm text-white">
-            Teachers Resources Sharing Platform
+            {t("Teachers Resources Sharing Platform")}
           </p>
         </div>
       ) : mode === 7 ? (

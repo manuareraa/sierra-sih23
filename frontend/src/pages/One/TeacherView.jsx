@@ -6,7 +6,7 @@ import tProfileIcon from "../../assets/img/teacher.png";
 import { Button } from "@nextui-org/react";
 
 function TeacherView(props) {
-  const { appState } = useAppContext();
+  const { appState, t } = useAppContext();
   const { teacherId } = useParams();
   const [teacher, setTeacher] = useState({});
   const [history, setHistory] = useState([]);
@@ -167,7 +167,7 @@ function TeacherView(props) {
     <div className="flex flex-col items-center justify-center w-full h-full p-8 py-10 ">
       {/* title */}
       <div className="">
-        <p className="my-4 text-xl font-bold">Teacher Profile</p>
+        <p className="my-4 text-xl font-bold">{t("Teacher Profile")}</p>
       </div>
       <div className="divider"></div>
 
@@ -179,11 +179,11 @@ function TeacherView(props) {
           <div className="flex flex-row gap-x-8">
             <img src={tProfileIcon} className="w-40 h-40" />
             <div className="grid grid-cols-2 gap-y-2 gap-x-4">
-              Name: <span className="font-bold">{teacher.name}</span>
-              Department:{" "}
+              {t("Name")}: <span className="font-bold">{teacher.name}</span>
+              {t("Department")}:{" "}
               <span className="font-bold">{teacher.department}</span>
               DOB: <span className="font-bold">{teacher.dob}</span>
-              Experience:{" "}
+              {t("Experience")}:{" "}
               <span className="font-bold">
                 {teacher.yearsOfExperience} Years
               </span>
@@ -209,7 +209,7 @@ function TeacherView(props) {
                     ></path>
                   </svg>
                 </div>
-                <div className="stat-title">Reputation</div>
+                <div className="stat-title">{t("Reputation")}</div>
                 <div className="stat-value text-primary">
                   {teacher.reputation}
                 </div>
@@ -245,7 +245,7 @@ function TeacherView(props) {
         {/* skillset container */}
         <div className="flex flex-col">
           <div className="flex flex-col items-center justify-center py-6">
-            <p className="text-xl font-bold">Skillset</p>
+            <p className="text-xl font-bold">{t("Skillset")}</p>
           </div>
 
           {/* skillset */}
@@ -254,7 +254,7 @@ function TeacherView(props) {
               {/* one-to-one */}
               <div className="stat">
                 <div className="stat-figure text-primary">{/* svg */}</div>
-                <div className="stat-title">One-to-One</div>
+                <div className="stat-title">{"One-to-One"}</div>
                 <div className="stat-value text-primary">
                   {teacher.reputation}
                 </div>
@@ -264,7 +264,7 @@ function TeacherView(props) {
               {/* project-based */}
               <div className="stat">
                 <div className="stat-figure text-primary">{/* svg */}</div>
-                <div className="stat-title">Project Based</div>
+                <div className="stat-title">{t("Project Based")}</div>
                 <div className="stat-value text-primary">
                   {teacher.reputation}
                 </div>
@@ -274,7 +274,7 @@ function TeacherView(props) {
               {/* online */}
               <div className="stat">
                 <div className="stat-figure text-primary">{/* svg */}</div>
-                <div className="stat-title">Online</div>
+                <div className="stat-title">{"Online"}</div>
                 <div className="stat-value text-primary">{teacher.tokenId}</div>
                 {/* <div className="stat-desc">21% more than last month</div> */}
               </div>
@@ -285,7 +285,9 @@ function TeacherView(props) {
         {/* work and rep container */}
         <div className="flex flex-col mt-14">
           <div className="flex flex-col items-center justify-center py-6">
-            <p className="text-xl font-bold">Work and Reputation History</p>
+            <p className="text-xl font-bold">
+              {t("Work and Reputation History")}
+            </p>
           </div>
 
           {/* work and rep */}
@@ -296,12 +298,12 @@ function TeacherView(props) {
                 <thead>
                   <tr>
                     <th>S.No</th>
-                    <th>Institution</th>
-                    <th>Duration</th>
-                    <th>From</th>
-                    <th>To</th>
-                    <th>Reputation</th>
-                    <th>Verify</th>
+                    <th>{t("Institution")}</th>
+                    <th>{t("Duration")}</th>
+                    <th>{t("From")}</th>
+                    <th>{t("To")}</th>
+                    <th>{t("Reputation")}</th>
+                    <th>{t("Verify")}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -326,7 +328,7 @@ function TeacherView(props) {
                               );
                             }}
                           >
-                            Verify
+                            {t("Verify")}
                           </Button>
                         </td>
                       </tr>

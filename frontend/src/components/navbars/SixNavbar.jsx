@@ -1,8 +1,10 @@
 import React from "react";
 import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../../utils/AppContext";
 
 function SixNavbar(props) {
+  const { t } = useAppContext();
   const navigate = useNavigate();
   return (
     <>
@@ -12,7 +14,7 @@ function SixNavbar(props) {
           navigate("/");
         }}
       >
-        Home
+        {t("Home")}
       </Button>
       {/* <Button
         className=""

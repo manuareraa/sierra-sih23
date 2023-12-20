@@ -16,6 +16,9 @@ import StudentViewThree from "./pages/Three/StudentViewThree";
 import LearningPlatformHome from "./pages/Four/LearningPlatformHome";
 import ContentCreation from "./pages/Five/ContentCreation";
 import ContentSearch from "./pages/Five/ContentSearch";
+import StudentLogin from "./pages/Three/StudentLogin";
+import VerifyCert from "./pages/verify/VerifyCert";
+import VerifySbt from "./pages/verify/VerifySbt";
 
 function App() {
   const location = useLocation();
@@ -49,6 +52,7 @@ function App() {
           path="/mode/three/student/view/:selectedClass/:studentId"
           element={<StudentViewThree />}
         />
+        <Route path="/mode/three/login" element={<StudentLogin />} />
 
         {/* four */}
         <Route
@@ -65,6 +69,10 @@ function App() {
           path="/mode/five/content-platform/search"
           element={<ContentSearch />}
         />
+
+        {/* verify */}
+        <Route path="/verify/cert" element={<VerifyCert />} />
+        <Route path="/verify/sbt" element={<VerifySbt />} />
       </Routes>
     </AppContextProvider>
   );

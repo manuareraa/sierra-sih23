@@ -4,7 +4,7 @@ import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 
 function Teachers(props) {
-  const { appState } = useAppContext();
+  const { appState, t } = useAppContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,7 +14,9 @@ function Teachers(props) {
   return (
     <div className="flex flex-col items-center justify-center w-full h-full p-8 py-20 ">
       <div className="">
-        <p className="my-4 text-xl font-bold">Enrolled Teachers</p>
+        <p className="my-4 text-xl font-bold">
+          {t("Enrolled Teachers")}
+        </p>
       </div>
 
       {/* table */}
@@ -25,13 +27,25 @@ function Teachers(props) {
             <thead>
               <tr>
                 <th>S.No</th>
-                <th>Name</th>
-                <th>Reputation</th>
-                <th>DOB</th>
+                <th>
+                  {t("Name")}
+                </th>
+                <th>
+                  {t("Reputation")}
+                </th>
+                <th>
+                  {t("DOB")}
+                </th>
                 <th>SBT ID</th>
-                <th>Experience</th>
-                <th>Department</th>
-                <th>Address</th>
+                <th>
+                  {t("Experience")}
+                </th>
+                <th>
+                  {t("Department")}
+                </th>
+                <th>
+                  {t("Address")}
+                </th>
                 <th></th>
               </tr>
             </thead>
@@ -63,7 +77,7 @@ function Teachers(props) {
                           navigate("/mode/one/teacher/view/" + teacher.tokenId);
                         }}
                       >
-                        View
+                        {t("View")}
                       </Button>
                     </td>
                   </tr>

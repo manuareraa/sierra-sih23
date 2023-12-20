@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../utils/AppContext";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input, Textarea } from "@nextui-org/react";
 import { useParams } from "react-router-dom";
 
 import {
@@ -14,13 +14,108 @@ import {
   studentsEleven,
 } from "../../data/students";
 import studentIcon from "../../assets/img/studentIcon.svg";
+import toast from "react-hot-toast";
 
 function StudentViewThree(props) {
-  const { appState, mode, setMode } = useAppContext();
+  const { appState, mode, setMode, t, evaluationWithAI, addInsightToBackend } =
+    useAppContext();
   const navigate = useNavigate();
   const { studentId, selectedClass } = useParams();
   const [student, setStudent] = useState({});
   const [index, setIndex] = useState(0);
+
+  const [ques, setQues] = useState([]);
+  const [testAnswers, setTestAnswers] = useState([]);
+  const [evaluated, setEvaluated] = useState(false);
+  const [evaluating, setEvaluating] = useState(false);
+  const [evaluatedAnswers, setEvaluatedAnswers] = useState({});
+
+  const names = [
+    // random indian student names
+    "Anthony",
+    "Ranjitha",
+    "Kiran",
+    "Srikanth",
+    "Manu",
+    "Gowtham",
+    "Kumar",
+    "Ashok",
+    "Dilli",
+    "Thomas",
+    "Anup",
+    "Kashya",
+    "Mohini",
+  ];
+
+  function getRandomName() {
+    const randomIndex = Math.floor(Math.random() * names.length);
+    return names[randomIndex];
+  }
+
+  const renderQues = async () => {
+    try {
+      let tempArr = [];
+      {
+        if (evaluated !== true) {
+          setQues(tempArr);
+        }
+      }
+      const qID = ["QUES_1", "QUES_2", "QUES_3"];
+      let qIDCounter = 0;
+      appState.attempts[0].data.map((item, index) => {
+        let tempObj;
+        if (item.type !== "long" && item.type !== "medium") {
+          tempObj = (
+            <div>
+              <div className="flex flex-col gap-y-2" key={index}>
+                <p className="font-bold">
+                  {index + 1}. {item.text}&nbsp;
+                  <span className="text-sm font-normal">
+                    Short Question Answer
+                  </span>
+                </p>
+                <div className="flex flex-col w-full mb-12 gap-y-2">
+                  <Textarea
+                    isReadOnly={evaluated}
+                    label="Answer"
+                    placeholder="Enter your answer"
+                    className="w-full"
+                    onChange={(e) => {
+                      let temp = testAnswers;
+                      temp[index] = e.target.value;
+                      setTestAnswers(temp);
+                    }}
+                    value={testAnswers[index]}
+                  ></Textarea>
+                  {evaluated === true ? (
+                    <Textarea
+                      isReadOnly
+                      label="AI Feedback"
+                      placeholder="Enter your answer"
+                      className="w-full "
+                      onChange={(e) => {
+                        let temp = testAnswers;
+                        temp[index] = e.target.value;
+                        setTestAnswers(temp);
+                      }}
+                      value={evaluatedAnswers[qID[qIDCounter]] || "No Comments"}
+                    ></Textarea>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+          );
+          console.log(qIDCounter, " >> ", qIDCounter + 1);
+          qIDCounter = qIDCounter + 1;
+        }
+
+        tempArr.push(tempObj);
+        setQues(tempArr);
+      });
+    } catch (error) {
+      console.log("err in renderques", error);
+    }
+  };
 
   useEffect(() => {
     console.log(
@@ -59,11 +154,22 @@ function StudentViewThree(props) {
     });
   }, []);
 
+  useEffect(() => {
+    console.log("Attempts USF", appState.attempts);
+    if (appState.attempts.length > 0) {
+      renderQues();
+    }
+  }, [appState.attempts]);
+
+  useEffect(() => {
+    renderQues();
+  }, [evaluated]);
+
   return (
     <div className="flex flex-col items-center justify-center w-full h-full p-8 py-10 ">
       {/* title */}
       <div className="">
-        <p className="my-4 text-xl font-bold">Student Profile</p>
+        <p className="my-4 text-xl font-bold">{t("Student Profile")}</p>
       </div>
       <div className="divider"></div>
 
@@ -72,11 +178,11 @@ function StudentViewThree(props) {
         <div className="flex flex-row gap-x-8">
           <img src={studentIcon} className="w-40 h-40" />
           <div className="grid grid-cols-2 gap-y-2 gap-x-4">
-            Name: <span className="font-bold">{student.name}</span>
-            Class: <span className="font-bold">{student.class}</span>
+            {t("Name")}: <span className="font-bold">{student.name}</span>
+            {t("Class")}: <span className="font-bold">{student.class}</span>
             DOB: <span className="font-bold">{student.dob}</span>
-            Gender: <span className="font-bold">Male</span>
-            Age: <span className="font-bold">{student.age}</span>
+            {t("Gender")}: <span className="font-bold">Male</span>
+            {t("Age")}: <span className="font-bold">{student.age}</span>
           </div>
         </div>
 
@@ -99,7 +205,7 @@ function StudentViewThree(props) {
                   ></path>
                 </svg>
               </div>
-              <div className="stat-title">CARS Score</div>
+              <div className="stat-title">CARS {t("Score")}</div>
               <div className="stat-value text-primary">
                 {appState.studentData.carsScore || student.carsScore}
               </div>
@@ -141,18 +247,18 @@ function StudentViewThree(props) {
         <div>
           <div className="flex flex-col items-center justify-center w-full my-6">
             <p className="font-bold underline underline-offset-2">
-              CARS Score Card
+              CARS {t("Score Card")}
             </p>
           </div>
           <div className="overflow-x-auto">
             <table className="table table- table-pin-rows table-pin-cols">
               <thead>
                 <tr>
-                  <th>Subject</th>
-                  <td>One-to-One</td>
-                  <td>Online</td>
-                  <td>Project</td>
-                  <td>Total</td>
+                  <th>{t("Subject")}</th>
+                  <td>{t("One-to-One")}</td>
+                  <td>{t("Online")}</td>
+                  <td>{t("Project")}</td>
+                  <td>{t("Total")}</td>
                   <th></th>
                 </tr>
               </thead>
@@ -213,14 +319,14 @@ function StudentViewThree(props) {
         <div>
           <div className="flex flex-col items-center justify-center w-full my-6">
             <p className="font-bold underline underline-offset-2">
-              Marks Score Card
+              Marks {t("Score Card")}
             </p>
           </div>
           <div className="overflow-x-auto">
             <table className="table table- table-pin-rows table-pin-cols">
               <thead>
                 <tr>
-                  <th>Subject</th>
+                  <th>{t("Subject")}</th>
                   <td>Term I</td>
                   <td>Term II</td>
                   <td>Term III</td>
@@ -286,7 +392,9 @@ function StudentViewThree(props) {
 
       {/* monitor student activity */}
       <div className="flex flex-col items-center justify-center w-full my-6">
-        <p className="font-bold underline underline-offset-2">Your Activity</p>
+        <p className="font-bold underline underline-offset-2">
+          {t("Your Activity")}
+        </p>
 
         <div className="mt-8">
           <div className="overflow-x-auto">
@@ -295,20 +403,20 @@ function StudentViewThree(props) {
               <thead>
                 <tr>
                   <th></th>
-                  <th>Category</th>
-                  <th>Status</th>
-                  <th>CARS Score</th>
-                  <th>Activity</th>
+                  <th>{t("Activity")}</th>
+                  <th>{t("Status")}</th>
+                  <th>CARS {t("Score")}</th>
+                  <th>{t("Activity")}</th>
                 </tr>
               </thead>
               <tbody>
                 {/* row 1 */}
                 <tr className="hover">
                   <th>1</th>
-                  <td>Project-based Learning</td>
+                  <td>{t("Project-based Learning")}</td>
                   <td>
                     <span className="p-1 px-2 text-sm text-white bg-green-500 rounded-lg">
-                      Active
+                      {t("Active")}
                     </span>
                   </td>
                   <td>7.56</td>
@@ -326,17 +434,17 @@ function StudentViewThree(props) {
                         );
                       }}
                     >
-                      Submit Project
+                      {t("Submit Project")}
                     </Button>
                   </td>
                 </tr>
                 {/* row 2 */}
                 <tr className="hover">
                   <th>2</th>
-                  <td>Online Learning</td>
+                  <td>{t("Online Learning")}</td>
                   <td>
                     <span className="p-1 px-2 text-sm text-white rounded-lg bg-violet-500">
-                      Next
+                      {t("Next")}
                     </span>
                   </td>
                   <td>6.79</td>
@@ -354,17 +462,17 @@ function StudentViewThree(props) {
                         );
                       }}
                     >
-                      Go To Portal
+                      {t("Go To Portal")}
                     </Button>
                   </td>
                 </tr>
                 {/* row 3 */}
                 <tr className="hover">
                   <th>3</th>
-                  <td>1-to-1 Learning</td>
+                  <td>1-to-1 {t("Learning")}</td>
                   <td>
                     <span className="p-1 px-2 text-sm text-white bg-gray-500 rounded-lg">
-                      Upcoming
+                      {t("Upcoming")}
                     </span>
                   </td>
                   <td>9.21</td>
@@ -382,7 +490,29 @@ function StudentViewThree(props) {
                         );
                       }}
                     >
-                      See Schedule
+                      {t("See Schedule")}
+                    </Button>
+                  </td>
+                </tr>
+                {/* test attempt */}
+                <tr className="hover">
+                  <th>4</th>
+                  <td>Test</td>
+                  <td>
+                    <span className="p-1 px-2 text-sm text-white bg-red-500 rounded-lg">
+                      {t("Due")}
+                    </span>
+                  </td>
+                  <td>9.21</td>
+                  <td>
+                    <Button
+                      size="sm"
+                      className="text-white bg-blue-500"
+                      onClick={() =>
+                        document.getElementById("my_modal_1").showModal()
+                      }
+                    >
+                      Give Exam
                     </Button>
                   </td>
                 </tr>
@@ -397,14 +527,14 @@ function StudentViewThree(props) {
       {/* student history */}
       <div className="flex flex-col items-center justify-center w-full my-6">
         <p className="font-bold underline underline-offset-2">
-          Student History
+          {t("Student History")}
         </p>
 
         <div className="flex flex-row items-start gap-x-16">
           {/* activity history */}
           <div className="mt-8">
             <p className="flex flex-col items-center justify-center font-bold underline underline-offset-2">
-              Activity History
+              {t("Activity History")}
             </p>
             <div className="mt-8 overflow-x-auto">
               <table className="table">
@@ -412,17 +542,17 @@ function StudentViewThree(props) {
                 <thead>
                   <tr>
                     <th></th>
-                    <th>Activity</th>
-                    <th>Timestamp</th>
-                    <th>Category</th>
-                    <th>CARS Score</th>
+                    <th>{t("Activity")}</th>
+                    <th>{t("Timestamp")}</th>
+                    <th>{t("Category")}</th>
+                    <th>CARS {"Score"}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {/* row 1 */}
                   <tr>
                     <th>1</th>
-                    <td>Completed "Everyday Math"</td>
+                    <td>{t("Completed")} "Everyday Math"</td>
                     <td>10/10/2021</td>
                     <td>
                       <span className="p-1 px-2 text-sm text-white bg-green-500 rounded-lg">
@@ -447,7 +577,7 @@ function StudentViewThree(props) {
                           );
                         }}
                       >
-                        View Certificate
+                        {t("View Certificate")}
                       </Button>
                     </td>
                   </tr>
@@ -455,11 +585,11 @@ function StudentViewThree(props) {
                   {/* row 2 */}
                   <tr className="hover">
                     <th>2</th>
-                    <td>Certification for Organic Chemistry Course</td>
+                    <td>{t("Certification for")} Organic Chemistry Course</td>
                     <td>10/10/2021</td>
                     <td>
                       <span className="p-1 px-2 text-sm text-white rounded-lg bg-violet-500">
-                        Online
+                        {t("Online")}
                       </span>
                     </td>
                     <td className="font-bold text-green-500">
@@ -481,7 +611,7 @@ function StudentViewThree(props) {
                           );
                         }}
                       >
-                        View Certificate
+                        {t("View Certificate")}
                       </Button>
                     </td>
                   </tr>
@@ -493,7 +623,7 @@ function StudentViewThree(props) {
                     <td>10/10/2021</td>
                     <td>
                       <span className="p-1 px-2 text-sm text-white rounded-lg bg-violet-500">
-                        Online
+                        {t("Online")}
                       </span>
                     </td>
                     <td className="font-bold text-green-500">
@@ -514,7 +644,7 @@ function StudentViewThree(props) {
                           );
                         }}
                       >
-                        View Certificate
+                        {t("View Certificate")}
                       </Button>
                     </td>
                   </tr>
@@ -526,7 +656,7 @@ function StudentViewThree(props) {
           {/* education history */}
           <div className="mt-8">
             <p className="flex flex-col items-center justify-center font-bold underline underline-offset-2">
-              Education History
+              {t("Education History")}
             </p>
             <div className="mt-8 overflow-x-auto">
               <table className="table">
@@ -534,10 +664,10 @@ function StudentViewThree(props) {
                 <thead>
                   <tr>
                     <th></th>
-                    <th>Name</th>
-                    <th>Qualification</th>
+                    <th>{t("Name")}</th>
+                    <th>{t("Qualification")}</th>
                     <th>SID</th>
-                    <th>Certificate</th>
+                    <th>{t("Certificate")}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -609,7 +739,7 @@ function StudentViewThree(props) {
                           );
                         }}
                       >
-                        View
+                        {t("View")}
                       </Button>
                     </td>
                   </tr>
@@ -619,6 +749,70 @@ function StudentViewThree(props) {
           </div>
         </div>
       </div>
+
+      {/* test modal */}
+      <dialog id="my_modal_1" className="modal">
+        <div className="w-11/12 max-w-6xl modal-box">
+          <h3 className="text-2xl font-bold">Cycle Test - II - Dec 2023</h3>
+          <div className="py-0 my-0 divider"></div>
+          <div className="flex flex-col mt-6">{ques}</div>
+          <div className="flex flex-row items-center modal-action">
+            <div>
+              {evaluated === true ? null : (
+                <Button
+                  className="text-white bg-blue-500 btn"
+                  onClick={async () => {
+                    setEvaluating(true);
+                    console.log("Ans: ", testAnswers);
+                    let QandAToSend = [];
+                    appState.attempts[0].data.map((item, index) => {
+                      if (item.type !== "long" && item.type !== "medium") {
+                        QandAToSend.push({
+                          question: item.text,
+                          answer: testAnswers[index],
+                          type: item.type,
+                        });
+                      }
+                    });
+                    console.log("QandAToSend: ", QandAToSend);
+                    const response = await evaluationWithAI(QandAToSend);
+                    console.log("AI Res: ", response);
+                    setEvaluatedAnswers(response);
+                    response.name = getRandomName();
+                    const insResponse = await addInsightToBackend(response);
+                    console.log("INS Res", insResponse);
+                    if (insResponse === true) {
+                      setEvaluating(false);
+                      setEvaluated(true);
+                      toast.success("Evaluation Successful");
+                    } else {
+                      setEvaluating(false);
+                      toast.error("Try again.");
+                    }
+                  }}
+                  isLoading={evaluating}
+                >
+                  Evaluate using AI
+                </Button>
+              )}
+            </div>
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn">Close</button>
+            </form>
+            {evaluated === true ? (
+              <p className="pl-6">
+                Your CARS score has declined by{" "}
+                <span className="font-bold text-red-500">
+                  -
+                  {(parseFloat(evaluatedAnswers.POINTS) / 40).toFixed(2) ||
+                    0.55}
+                </span>
+              </p>
+            ) : null}
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 }

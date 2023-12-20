@@ -3,7 +3,7 @@ import { useAppContext } from "../../utils/AppContext";
 import { Button } from "@nextui-org/react";
 
 function ContentSearch(props) {
-  const { getAllMaterials, appState } = useAppContext();
+  const { getAllMaterials, appState, t } = useAppContext();
   const [qpToView, setQpToView] = useState({
     type: "",
     data: [],
@@ -49,7 +49,7 @@ function ContentSearch(props) {
       {/* title */}
       <div className="">
         <p className="my-4 text-xl font-bold">
-          Teacher's Content Sharing Platform
+          {t("Teacher's Content Sharing Platform")}
         </p>
       </div>
       <div className="divider"></div>
@@ -61,7 +61,7 @@ function ContentSearch(props) {
           {/* title */}
           <div className="items-center justify-start w-full">
             <p className="font-bold text-black text-md">
-              Latest Question Papers
+              {t("Latest Question Papers")}
             </p>
           </div>
         </div>
@@ -93,28 +93,28 @@ function ContentSearch(props) {
                 {/* download button container */}
                 <div>
                   <div className="py-0 my-0 divider before:bg-white after:bg-white"></div>
-                  {/* class and subject */}
+                  {/* class and {t("Subject")} */}
                   <div className="flex flex-row items-center justify-between w-full gap-y-1">
                     <p className="text-sm text-white">
-                      <span className="">Class:&nbsp;</span>
+                      <span className="">{t("Class:")}&nbsp;</span>
                       <span className="font-bold">{generateRan(4, 12)}th</span>
                     </p>
                     <p className="text-sm text-white">
-                      <span className="">Subject:&nbsp;</span>{" "}
+                      <span className="">{t("Subject")}:&nbsp;</span>{" "}
                       <span className="font-bold">Science</span>
                     </p>
                   </div>
                   <div className="py-0 my-0 divider before:bg-white after:bg-white"></div>
-                  {/* author and ins code */}
+                  {/* {t("Author")} and ins code */}
                   <div>
                     <p className="text-sm text-white">
-                      <span className="text-white ">Author:</span>&nbsp;{" "}
+                      <span className="text-white ">{t("Author")}:</span>&nbsp;{" "}
                       <span className="font-bold">
                         {randomTeacherNames[generateRan(0, 5)]}
                       </span>
                     </p>
                     <p className="text-sm text-white">
-                      <span className="text-white ">Institution Code:</span>
+                      <span className="text-white ">{t("Institution Code")}:</span>
                       &nbsp;{" "}
                       <span className="font-bold">
                         {generateRan(400000, 999999).toString()}
@@ -129,7 +129,7 @@ function ContentSearch(props) {
                         document.getElementById("my_modal_1").showModal();
                       }}
                     >
-                      Download QP
+                      {t("Download QP")}
                     </Button>
                   </div>
                 </div>
@@ -145,7 +145,9 @@ function ContentSearch(props) {
         <div className="flex flex-col gap-y-4">
           {/* title */}
           <div className="items-center justify-start w-full">
-            <p className="font-bold text-black text-md">Latest Worksheets</p>
+            <p className="font-bold text-black text-md">
+              {t("Latest Worksheets")}
+            </p>
           </div>
         </div>
       </div>
@@ -169,28 +171,28 @@ function ContentSearch(props) {
           {/* download button container */}
           <div>
             <div className="py-0 my-0 divider before:bg-white after:bg-white"></div>
-            {/* class and subject */}
+            {/* class and {t("Subject")} */}
             <div className="flex flex-row items-center justify-between w-full gap-y-1">
               <p className="text-sm text-white">
-                <span className="">Class:&nbsp;</span>
+                <span className="">{t("Class:")}&nbsp;</span>
                 <span className="font-bold">{generateRan(4, 12)}th</span>
               </p>
               <p className="text-sm text-white">
-                <span className="">Subject:&nbsp;</span>{" "}
+                <span className="">{t("Subject")}:&nbsp;</span>{" "}
                 <span className="font-bold">Science</span>
               </p>
             </div>
             <div className="py-0 my-0 divider before:bg-white after:bg-white"></div>
-            {/* author and ins code */}
+            {/* {t("Author")} and ins code */}
             <div>
               <p className="text-sm text-white">
-                <span className="text-white ">Author:</span>&nbsp;{" "}
+                <span className="text-white ">{t("Author")}:</span>&nbsp;{" "}
                 <span className="font-bold">
                   {randomTeacherNames[generateRan(0, 5)]}
                 </span>
               </p>
               <p className="text-sm text-white">
-                <span className="text-white ">Institution Code:</span>
+                <span className="text-white ">{t("Institution Code")}:</span>
                 &nbsp;{" "}
                 <span className="font-bold">
                   {generateRan(400000, 999999).toString()}
@@ -205,7 +207,7 @@ function ContentSearch(props) {
                   document.getElementById("my_modal_1").showModal();
                 }}
               >
-                Download Worksheet
+                {t("Download Worksheet")}
               </Button>
             </div>
           </div>
@@ -215,13 +217,13 @@ function ContentSearch(props) {
       {/* modals */}
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
-          <h3 className="text-lg font-bold">Question Paper</h3>
+          <h3 className="text-lg font-bold">{t("Question Paper")}</h3>
           <div className="flex flex-col w-full py-4">
             <div>
               {/* short ans */}
               <div>
                 <p className="my-2 font-bold underline">
-                  Short Answer Questions:
+                  {t("Short Answer Questions")}:
                 </p>
               </div>
               {qpToView.data.map((item, index) => {
@@ -239,7 +241,7 @@ function ContentSearch(props) {
               {/* long ans */}
               <div>
                 <p className="pt-4 my-2 font-bold underline">
-                  Long Answer Questions:
+                  {t("Long Answer Questions")}:
                 </p>
               </div>
               {qpToView.data.map((item, index) => {
@@ -258,7 +260,7 @@ function ContentSearch(props) {
           <div className="modal-action">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
-              <button className="btn">Close</button>
+              <button className="btn">{t("Close")}</button>
             </form>
           </div>
         </div>

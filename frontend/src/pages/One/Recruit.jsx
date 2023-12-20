@@ -4,7 +4,7 @@ import { useAppContext } from "../../utils/AppContext";
 import Web3 from "web3";
 
 function Recruit(props) {
-  const { appState, createNewTeacher } = useAppContext();
+  const { appState, createNewTeacher,t } = useAppContext();
   const [formData, setFormData] = React.useState({
     name: "",
     dob: "",
@@ -32,13 +32,15 @@ function Recruit(props) {
   return (
     <div className="flex flex-col items-center justify-center w-full h-full p-8 py-20 ">
       <div className="">
-        <p className="my-4 text-xl font-bold">New Recruit</p>
+        <p className="my-4 text-xl font-bold">
+          {t("New Recruit")}
+        </p>
 
         {/* form */}
         <div className="flex flex-col p-4 py-4 border-2 border-black/20 rounded-2xl gap-y-4">
           <Input
             type="text"
-            label="Name"
+            label={t("Name")}
             className="w-[450px]"
             onChange={(e) => {
               setFormData({ ...formData, name: e.target.value });
@@ -47,7 +49,7 @@ function Recruit(props) {
           />
           <Input
             type="text"
-            label="Date of Birth"
+            label={t("Date of Birth")}
             className="w-[450px]"
             onChange={(e) => {
               setFormData({ ...formData, dob: e.target.value });
@@ -56,7 +58,7 @@ function Recruit(props) {
           />
           <Input
             type="text"
-            label="Department"
+            label={t("Department")}
             className="w-[450px]"
             onChange={(e) => {
               setFormData({ ...formData, department: e.target.value });
@@ -64,12 +66,12 @@ function Recruit(props) {
             value={formData.department}
           />
           <p className="font-bold underline underline-offset-2">
-            Reputation & Experience
+            {t("Reputation & Experience")}
           </p>
           <div className="flex flex-row justify-around gap-x-2 w-[450px]">
             <Input
               type="text"
-              label="Base Reputation"
+              label={t("Base Reputation")}
               className="w-[450px]"
               onChange={(e) => {
                 setFormData({ ...formData, baseReputation: e.target.value });
@@ -78,7 +80,7 @@ function Recruit(props) {
             />
             <Input
               type="text"
-              label="Base Experience"
+              label={t("Base Experience")}
               className="w-[450px]"
               onChange={(e) => {
                 setFormData({ ...formData, baseExperience: e.target.value });
@@ -99,7 +101,7 @@ function Recruit(props) {
             />
             <Input
               type="text"
-              label="Online Rating"
+              label={t("Online Rating")}
               className="w-[450px]"
               onChange={(e) => {
                 setFormData({ ...formData, onlineRating: e.target.value });
@@ -108,7 +110,7 @@ function Recruit(props) {
             />
             <Input
               type="text"
-              label="Project Rating"
+              label={t("Project Rating")}
               className="w-[450px]"
               onChange={(e) => {
                 setFormData({ ...formData, projectRating: e.target.value });
@@ -122,7 +124,7 @@ function Recruit(props) {
               submitForm();
             }}
           >
-            Mint Soul-bound Token
+            {t("Mint Soul-bound Token")}
           </Button>
         </div>
       </div>

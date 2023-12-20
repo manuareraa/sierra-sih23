@@ -1,8 +1,10 @@
 import React from "react";
 import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../../utils/AppContext";
 
 function FiveNavbar(props) {
+  const { t } = useAppContext();
   const navigate = useNavigate();
   return (
     <>
@@ -12,7 +14,7 @@ function FiveNavbar(props) {
           navigate("/mode/five/content-platform/create");
         }}
       >
-        Create Content
+        {t("Create Content")}
       </Button>
       <Button
         className=""
@@ -20,7 +22,7 @@ function FiveNavbar(props) {
           navigate("/mode/five/content-platform/search");
         }}
       >
-        Search Content
+        {t("Search Content")}
       </Button>
     </>
   );

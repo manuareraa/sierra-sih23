@@ -20,8 +20,14 @@ import {
 import toast from "react-hot-toast";
 
 function ContentCreation(props) {
-  const { appState, generateQuestionPapers, shareNewMaterial } =
-    useAppContext();
+  const {
+    appState,
+    generateQuestionPapers,
+    shareNewMaterial,
+    t,
+    attemptNewMaterial,
+    getOverallIns,
+  } = useAppContext();
   const [studentsData, setStudentsData] = useState([]);
   const [currentQPView, setCurrentQPView] = useState(0);
   const [questionPapers, setQuestionPapers] = useState([
@@ -85,6 +91,13 @@ function ContentCreation(props) {
   const [studentCards, setStudentCards] = useState([]);
   const [difficultyLevel, setDifficultyLevel] = useState("");
   const [chapter, setChapter] = useState("");
+  const [indiCards, setIndiCards] = useState("");
+
+  const [overallIns, setOverallIns] = useState("");
+  const [insBundle, setInsBundle] = useState([]);
+  const [fetchOI, setFetchingOI] = useState(false);
+  const [bulletPoints, setBulletPoints] = useState([]);
+  const [para, setPara] = useState("");
 
   const renderStudentCards = async () => {
     let tempArr = [];
@@ -135,9 +148,10 @@ function ContentCreation(props) {
                   }
                 }}
               >
-                Generate Question Paper
+                {t("Generate Question Paper")}
               </Button>
             </td>
+
             <td>
               <Button
                 size="sm"
@@ -148,7 +162,19 @@ function ContentCreation(props) {
                   document.getElementById("my_modal_1").showModal();
                 }}
               >
-                View Question Paper
+                {t("View Question Paper")}
+              </Button>
+            </td>
+            <td>
+              <Button
+                size="sm"
+                className="text-white bg-blue-500 disabled:bg-blue-500/40"
+                disabled={!questionPapers[index].status}
+                onClick={() =>
+                  document.getElementById("my_modal_2").showModal()
+                }
+              >
+                Feedback & Insights
               </Button>
             </td>
           </tr>
@@ -179,16 +205,94 @@ function ContentCreation(props) {
     }
   };
 
+  const attemptLocal = async () => {
+    const response = await attemptNewMaterial(
+      questionPapers[currentQPView].data,
+      "qp"
+    );
+
+    console.log("RESPONSE: ", response);
+
+    if (response !== false) {
+      toast.success("Successfully sent to student");
+    }
+  };
+
+  const renderInsightCards = () => {
+    let tempArr = [];
+    let tempIns = [];
+    setIndiCards(tempArr);
+    appState.insights.map((item, index) => {
+      let card = (
+        <div className="p-4 bg-white rounded-lg">
+          <p>
+            <span className="font-bold">Name:</span>{" "}
+            <span className="font-">{item.name}</span>
+          </p>
+          <p>
+            <span className="font-bold">Insight:</span>{" "}
+            <span className="font-">{item["INSIGHTS"]}</span>
+          </p>
+        </div>
+      );
+      tempArr.push(card);
+      tempIns.push(item["INSIGHTS"]);
+      setIndiCards(tempArr);
+      setInsBundle(tempIns);
+    });
+  };
+
+  const localFunc = async () => {
+    console.log("calling localfunc");
+    try {
+      setFetchingOI(true);
+      let stng = JSON.stringify(insBundle);
+      const result = await getOverallIns(stng);
+      if (result !== false) {
+        console.log("ov res", result);
+        extractAndFormatText(result);
+        setOverallIns(result);
+        setFetchingOI(false);
+      }
+    } catch (error) {
+      console.log("eer", error);
+      setFetchingOI(false);
+    }
+  };
+
+  function extractAndFormatText(text) {
+    // Extracting the paragraph and key insights from the text
+    const keyInsightsIndex = text.indexOf("Key Insights:");
+    const paragraph = text.substring(0, keyInsightsIndex).trim();
+    const keyInsightsText = text.substring(keyInsightsIndex).trim();
+
+    // Splitting and formatting the key insights as bullet points
+    const bulletPoints = keyInsightsText
+      .split(" - ")
+      .slice(1)
+      .map((point) => point.trim());
+
+    setBulletPoints(bulletPoints);
+    setPara(paragraph);
+  }
+
   useEffect(() => {
     renderStudentCards();
   }, [studentsData, questionPapers]);
+
+  useEffect(() => {
+    console.log("APP INS: ", appState.insights);
+    if (appState.insights.length > 0) {
+      renderInsightCards();
+    }
+  }, [appState.insights]);
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full p-8 py-10 ">
       {/* title */}
       <div className="">
         <p className="my-4 text-xl font-bold">
-          Teacher's Content Creation Platform
+          {t("Teacher's Content Creation Platform")}
         </p>
       </div>
       <div className="divider"></div>
@@ -200,7 +304,7 @@ function ContentCreation(props) {
           {/* title */}
           <div className="items-center justify-start w-full">
             <p className="font-bold text-black text-md">
-              Create Custom Question Papers
+              {t("Create Custom Question Papers")}
             </p>
           </div>
         </div>
@@ -214,18 +318,18 @@ function ContentCreation(props) {
             <thead>
               <tr>
                 <th></th>
-                <th>Name</th>
-                <th>Class</th>
-                <th>Student ID</th>
-                <th>DOB</th>
-                <th>Gender</th>
-                <th>Age</th>
+                <th>{t("Name")}</th>
+                <th>{t("Class")}</th>
+                <th>{t("Student ID")}</th>
+                <th>{t("DOB")}</th>
+                <th>{t("Gender")}</th>
+                <th>{t("Age")}</th>
                 <th>
-                  <p className="font-bold">CARS Score</p>
+                  <p className="font-bold">CARS {t("Score")}</p>
                 </th>
                 <th>SBT ID</th>
-                <th>Generate</th>
-                <th>View</th>
+                <th>{t("Generate")}</th>
+                <th>{t("View")}</th>
               </tr>
             </thead>
             <tbody>{studentCards}</tbody>
@@ -239,7 +343,9 @@ function ContentCreation(props) {
         <div className="flex flex-col gap-y-4">
           {/* title */}
           <div className="items-center justify-start w-full">
-            <p className="font-bold text-black text-md">Study Materials</p>
+            <p className="font-bold text-black text-md">
+              {t("Create Study Materials")}
+            </p>
           </div>
         </div>
       </div>
@@ -248,29 +354,34 @@ function ContentCreation(props) {
       <div className="grid w-full grid-cols-4 grid-rows-2 my-6 gap-x-8 gap-y-8">
         <div className="flex flex-col items-center justify-between w-full p-4 bg-blue-500 rounded-lg gap-x-2">
           <div className="flex flex-col w-full gap-y-">
-            <p className="text-xs font-bold text-white">Chapter: 1</p>
-            <p className="text-lg font-bold text-white">Components of Food</p>
+            <p className="text-xs font-bold text-white">{t("Chapter")}: 1</p>
+            <p className="text-lg font-bold text-white">
+              {t("Components of Food")}
+            </p>
           </div>
           <div className="flex flex-col items-center justify-center w-full my-2 mt-6 gap-y-2">
             <Button
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for < 4.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`< 4.0 CARS`}
               <div className="w-3 h-3 bg-red-500 rounded-full"></div>
             </Button>
             <Button
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for < 7.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`< 7.0 CARS`}
               <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
             </Button>
             <Button
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for > 7.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`> 7.0 CARS`}
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
             </Button>
           </div>
@@ -278,7 +389,7 @@ function ContentCreation(props) {
 
         <div className="flex flex-col items-center justify-between w-full p-4 bg-blue-500 rounded-lg gap-x-2">
           <div className="flex flex-col w-full gap-y-">
-            <p className="text-xs font-bold text-white">Chapter: 1</p>
+            <p className="text-xs font-bold text-white">{t("Chapter")}: 1</p>
             <p className="text-lg font-bold text-white">Components of Food</p>
           </div>
           <div className="flex flex-col items-center justify-center w-full my-2 mt-6 gap-y-2">
@@ -286,21 +397,24 @@ function ContentCreation(props) {
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for < 4.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`< 4.0 CARS`}
               <div className="w-3 h-3 bg-red-500 rounded-full"></div>
             </Button>
             <Button
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for < 7.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`< 7.0 CARS`}
               <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
             </Button>
             <Button
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for > 7.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`> 7.0 CARS`}
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
             </Button>
           </div>
@@ -308,7 +422,7 @@ function ContentCreation(props) {
 
         <div className="flex flex-col items-center justify-between w-full p-4 bg-blue-500 rounded-lg gap-x-2">
           <div className="flex flex-col w-full gap-y-">
-            <p className="text-xs font-bold text-white">Chapter: 1</p>
+            <p className="text-xs font-bold text-white">{t("Chapter")}: 1</p>
             <p className="text-lg font-bold text-white">Components of Food</p>
           </div>
           <div className="flex flex-col items-center justify-center w-full my-2 mt-6 gap-y-2">
@@ -316,21 +430,24 @@ function ContentCreation(props) {
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for < 4.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`< 4.0 CARS`}
               <div className="w-3 h-3 bg-red-500 rounded-full"></div>
             </Button>
             <Button
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for < 7.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`< 7.0 CARS`}
               <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
             </Button>
             <Button
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for > 7.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`> 7.0 CARS`}
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
             </Button>
           </div>
@@ -338,7 +455,7 @@ function ContentCreation(props) {
 
         <div className="flex flex-col items-center justify-between w-full p-4 bg-blue-500 rounded-lg gap-x-2">
           <div className="flex flex-col w-full gap-y-">
-            <p className="text-xs font-bold text-white">Chapter: 1</p>
+            <p className="text-xs font-bold text-white">{t("Chapter")}: 1</p>
             <p className="text-lg font-bold text-white">Components of Food</p>
           </div>
           <div className="flex flex-col items-center justify-center w-full my-2 mt-6 gap-y-2">
@@ -346,21 +463,24 @@ function ContentCreation(props) {
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for < 4.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`< 4.0 CARS`}
               <div className="w-3 h-3 bg-red-500 rounded-full"></div>
             </Button>
             <Button
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for < 7.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`< 7.0 CARS`}
               <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
             </Button>
             <Button
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for > 7.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`> 7.0 CARS`}
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
             </Button>
           </div>
@@ -368,7 +488,7 @@ function ContentCreation(props) {
 
         <div className="flex flex-col items-center justify-between w-full p-4 bg-blue-500 rounded-lg gap-x-2">
           <div className="flex flex-col w-full gap-y-">
-            <p className="text-xs font-bold text-white">Chapter: 1</p>
+            <p className="text-xs font-bold text-white">{t("Chapter")}: 1</p>
             <p className="text-lg font-bold text-white">Components of Food</p>
           </div>
           <div className="flex flex-col items-center justify-center w-full my-2 mt-6 gap-y-2">
@@ -376,21 +496,24 @@ function ContentCreation(props) {
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for < 4.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`< 4.0 CARS`}
               <div className="w-3 h-3 bg-red-500 rounded-full"></div>
             </Button>
             <Button
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for < 7.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`< 7.0 CARS`}
               <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
             </Button>
             <Button
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for > 7.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`> 7.0 CARS`}
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
             </Button>
           </div>
@@ -398,7 +521,7 @@ function ContentCreation(props) {
 
         <div className="flex flex-col items-center justify-between w-full p-4 bg-blue-500 rounded-lg gap-x-2">
           <div className="flex flex-col w-full gap-y-">
-            <p className="text-xs font-bold text-white">Chapter: 1</p>
+            <p className="text-xs font-bold text-white">{t("Chapter")}: 1</p>
             <p className="text-lg font-bold text-white">Components of Food</p>
           </div>
           <div className="flex flex-col items-center justify-center w-full my-2 mt-6 gap-y-2">
@@ -406,21 +529,24 @@ function ContentCreation(props) {
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for < 4.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`< 4.0 CARS`}
               <div className="w-3 h-3 bg-red-500 rounded-full"></div>
             </Button>
             <Button
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for < 7.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`< 7.0 CARS`}
               <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
             </Button>
             <Button
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for > 7.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`> 7.0 CARS`}
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
             </Button>
           </div>
@@ -428,7 +554,7 @@ function ContentCreation(props) {
 
         <div className="flex flex-col items-center justify-between w-full p-4 bg-blue-500 rounded-lg gap-x-2">
           <div className="flex flex-col w-full gap-y-">
-            <p className="text-xs font-bold text-white">Chapter: 1</p>
+            <p className="text-xs font-bold text-white">{t("Chapter")}: 1</p>
             <p className="text-lg font-bold text-white">Components of Food</p>
           </div>
           <div className="flex flex-col items-center justify-center w-full my-2 mt-6 gap-y-2">
@@ -436,21 +562,24 @@ function ContentCreation(props) {
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for < 4.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`< 4.0 CARS`}
               <div className="w-3 h-3 bg-red-500 rounded-full"></div>
             </Button>
             <Button
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for < 7.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`< 7.0 CARS`}
               <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
             </Button>
             <Button
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for > 7.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`> 7.0 CARS`}
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
             </Button>
           </div>
@@ -458,7 +587,7 @@ function ContentCreation(props) {
 
         <div className="flex flex-col items-center justify-between p-4 bg-blue-500 rounded-lg gap-x-2">
           <div className="flex flex-col w-full gap-y-">
-            <p className="text-xs font-bold text-white">Chapter: 1</p>
+            <p className="text-xs font-bold text-white">{t("Chapter")}: 1</p>
             <p className="text-lg font-bold text-white">Components of Food</p>
           </div>
           <div className="flex flex-col items-center justify-center w-full my-2 mt-6 gap-y-2">
@@ -466,21 +595,24 @@ function ContentCreation(props) {
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for < 4.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`< 4.0 CARS`}
               <div className="w-3 h-3 bg-red-500 rounded-full"></div>
             </Button>
             <Button
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for < 7.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`< 7.0 CARS`}
               <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
             </Button>
             <Button
               size="sm"
               className="flex flex-row items-center w-full text-black bg-white gap-x-4"
             >
-              {`Create Material for > 7.0 CARS`}
+              <span>{t("Create Material for")}</span>
+              {`> 7.0 CARS`}
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
             </Button>
           </div>
@@ -492,7 +624,9 @@ function ContentCreation(props) {
         <div className="flex flex-col gap-y-4">
           {/* title */}
           <div className="items-center justify-start w-full">
-            <p className="font-bold text-black text-md">Create Worksheets</p>
+            <p className="font-bold text-black text-md">
+              {t("Create Custom Worksheets")}
+            </p>
           </div>
         </div>
       </div>
@@ -504,7 +638,11 @@ function ContentCreation(props) {
           {/* container one */}
           <div className="flex flex-row items-center gap-x-4">
             <div className="w-60">
-              <Input className="" label="Worksheet Title" size="sm"></Input>
+              <Input
+                className=""
+                label={t("Worksheet Title")}
+                size="sm"
+              ></Input>
             </div>
 
             {/* difficulty level dropdown */}
@@ -515,9 +653,11 @@ function ContentCreation(props) {
                   className="py-6 text-white bg-black"
                   size=""
                 >
-                  {difficultyLevel === ""
-                    ? "Choose Difficulty Level"
-                    : difficultyLevel}
+                  {difficultyLevel === "" ? (
+                    <span>{t("Choose Difficulty Level")}</span>
+                  ) : (
+                    difficultyLevel
+                  )}
                 </Button>
               </DropdownTrigger>
               <DropdownMenu aria-label="Static Actions">
@@ -550,7 +690,11 @@ function ContentCreation(props) {
                   className="py-6 text-white bg-black"
                   size=""
                 >
-                  {chapter === "" ? "Choose Chapter" : chapter}
+                  {chapter === "" ? (
+                    <span>{t("Choose Chapter")}</span>
+                  ) : (
+                    chapter
+                  )}
                 </Button>
               </DropdownTrigger>
               <DropdownMenu aria-label="Static Actions">
@@ -560,7 +704,7 @@ function ContentCreation(props) {
                     setChapter("Chapter - 1: Components of Food");
                   }}
                 >
-                  Chapter - 1: Components of Food
+                  {t("Chapter")} - 1: Components of Food
                 </DropdownItem>
                 <DropdownItem
                   key="copy"
@@ -568,7 +712,7 @@ function ContentCreation(props) {
                     "Chapter - 1: Components of Food";
                   }}
                 >
-                  Chapter - 1: Components of Food
+                  {t("Chapter")} - 1: Components of Food
                 </DropdownItem>
                 <DropdownItem
                   key="edit"
@@ -576,7 +720,7 @@ function ContentCreation(props) {
                     "Chapter - 1: Components of Food";
                   }}
                 >
-                  Chapter - 1: Components of Food
+                  {t("Chapter")} - 1: Components of Food
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -585,13 +729,13 @@ function ContentCreation(props) {
           {/* container two */}
           <div className="flex flex-row items-center gap-x-4">
             <Button className="w-40 h-full py-4 text-white bg-blue-500">
-              Create
+              {t("Create")}
             </Button>
             <Button
               className="w-40 h-full py-4 text-white bg-blue-500 disabled:bg-blue-500/50"
               disabled={true}
             >
-              Share
+              {t("Share")}
             </Button>
           </div>
         </div>
@@ -601,7 +745,11 @@ function ContentCreation(props) {
           {/* container one */}
           <div className="flex flex-row items-center gap-x-4">
             <div className="w-60">
-              <Input className="" label="Worksheet Title" size="sm"></Input>
+              <Input
+                className=""
+                label={t("Worksheet Title")}
+                size="sm"
+              ></Input>
             </div>
 
             {/* difficulty level dropdown */}
@@ -612,9 +760,11 @@ function ContentCreation(props) {
                   className="py-6 text-white bg-black"
                   size=""
                 >
-                  {difficultyLevel === ""
-                    ? "Choose Difficulty Level"
-                    : difficultyLevel}
+                  {difficultyLevel === "" ? (
+                    <span>{t("Choose Difficulty Level")}</span>
+                  ) : (
+                    difficultyLevel
+                  )}
                 </Button>
               </DropdownTrigger>
               <DropdownMenu aria-label="Static Actions">
@@ -647,7 +797,11 @@ function ContentCreation(props) {
                   className="py-6 text-white bg-black"
                   size=""
                 >
-                  {chapter === "" ? "Choose Chapter" : chapter}
+                  {chapter === "" ? (
+                    <span>{t("Choose Chapter")}</span>
+                  ) : (
+                    chapter
+                  )}
                 </Button>
               </DropdownTrigger>
               <DropdownMenu aria-label="Static Actions">
@@ -657,7 +811,7 @@ function ContentCreation(props) {
                     setChapter("Chapter - 1: Components of Food");
                   }}
                 >
-                  Chapter - 1: Components of Food
+                  {t("Chapter")} - 1: Components of Food
                 </DropdownItem>
                 <DropdownItem
                   key="copy"
@@ -665,7 +819,7 @@ function ContentCreation(props) {
                     "Chapter - 1: Components of Food";
                   }}
                 >
-                  Chapter - 1: Components of Food
+                  {t("Chapter")} - 1: Components of Food
                 </DropdownItem>
                 <DropdownItem
                   key="edit"
@@ -673,7 +827,7 @@ function ContentCreation(props) {
                     "Chapter - 1: Components of Food";
                   }}
                 >
-                  Chapter - 1: Components of Food
+                  {t("Chapter")} - 1: Components of Food
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -682,13 +836,13 @@ function ContentCreation(props) {
           {/* container two */}
           <div className="flex flex-row items-center gap-x-4">
             <Button className="w-40 h-full py-4 text-white bg-blue-500">
-              Create
+              {t("Create")}
             </Button>
             <Button
               className="w-40 h-full py-4 text-white bg-blue-500 disabled:bg-blue-500/50"
               disabled={true}
             >
-              Share
+              {t("Share")}
             </Button>
           </div>
         </div>
@@ -697,7 +851,7 @@ function ContentCreation(props) {
       {/* modal */}
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
-          <h3 className="text-lg font-bold">Generated Question Paper</h3>
+          <h3 className="text-lg font-bold">{t("Generated Question Paper")}</h3>
           <div className="py-0 my-0 divider"></div>
           {/* modal body */}
           <div className="flex flex-col w-full py-4">
@@ -706,7 +860,7 @@ function ContentCreation(props) {
                 {/* short ans */}
                 <div>
                   <p className="my-2 font-bold underline">
-                    Short Answer Questions:
+                    {t("Short Answer Questions:")}
                   </p>
                 </div>
                 {questionPapers[currentQPView].data.map((item, index) => {
@@ -726,7 +880,7 @@ function ContentCreation(props) {
                 {/* long ans */}
                 <div>
                   <p className="pt-4 my-2 font-bold underline">
-                    Long Answer Questions:
+                    {t("Long Answer Questions:")}
                   </p>
                 </div>
                 {questionPapers[currentQPView].data.map((item, index) => {
@@ -748,16 +902,76 @@ function ContentCreation(props) {
           <div className="w-full modal-action">
             <form method="dialog" className="w-full">
               <div className="flex flex-row items-center justify-between">
-                <button
-                  className="text-white bg-blue-500 btn"
-                  onClick={() => {
-                    shareLocal();
-                  }}
-                >
-                  Share to Public Platform
-                </button>
-                <button className="btn">Close</button>
+                <div className="flex flex-row items-center gap-x-2">
+                  <button
+                    className="text-white bg-blue-500 btn"
+                    onClick={() => {
+                      shareLocal();
+                    }}
+                  >
+                    {t("Share to Public Platform")}
+                  </button>
+                  <button
+                    className="text-white bg-blue-500 btn"
+                    onClick={() => {
+                      attemptLocal();
+                    }}
+                  >
+                    Ask to Attempt
+                  </button>
+                </div>
+                <button className="btn">{t("Close")}</button>
               </div>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+      {/* modal 2*/}
+      <dialog id="my_modal_2" className="modal">
+        <div className="w-11/12 max-w-5xl modal-box">
+          <h3 className="text-lg font-bold">AI Feedback and Insight</h3>
+          <div className="py-0 my-0 divider"></div>
+          <div className="flex flex-col gap-y-6">
+            <div>
+              <p className="mt-3 font-bold">Attempted Student(s): {indiCards.length || 0}</p>
+            </div>
+            <div className="flex flex-col p-4 rounded-lg mt- gap-y-2 bg-black/10">
+              <div>
+                <p className="font-bold text-black">Overall Class Feedback</p>
+              </div>
+              <p className="italic">
+                {overallIns === ""
+                  ? "Please fetch overall insight"
+                  : // <div className="flex flex-col">
+                    //   {para}
+                    //   {bulletPoints.map((point, index) => (
+                    //     <li key={index}>{point}</li>
+                    //   ))}
+                    // </div>
+                    overallIns}
+              </p>
+            </div>
+            <Button
+              className="text-white bg-blue-500"
+              isLoading={fetchOI}
+              onClick={() => localFunc()}
+            >
+              Get Overall Insight
+            </Button>
+
+            <div className="flex flex-col p-4 rounded-lg gap-y-2 bg-black/10">
+              <div>
+                <p className="font-bold text-black">Individuals Feedback</p>
+              </div>
+
+              {indiCards}
+            </div>
+          </div>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn">Close</button>
             </form>
           </div>
         </div>

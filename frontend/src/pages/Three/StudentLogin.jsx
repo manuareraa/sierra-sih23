@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAppContext } from "../../utils/AppContext";
 
-function Login(props) {
+function StudentLogin(props) {
   const navigate = useNavigate();
   const { appState, mode, setMode, t } = useAppContext();
   const [formData, setFormData] = useState({
@@ -15,13 +15,13 @@ function Login(props) {
   return (
     <div className="flex flex-col items-center justify-center w-full h-full p-8 py-20 ">
       <div className="">
-        <p className="my-4 text-xl font-bold">{t("Teacher's Login")}</p>
+        <p className="my-4 text-xl font-bold">{t("Student's Login")}</p>
 
         {/* form */}
         <div className="flex flex-col p-4 py-4 border-2 border-black/20 rounded-2xl gap-y-4">
           <Input
             type="email"
-            label={t("Email")}
+            label="Email"
             className="w-[450px]"
             onChange={(e) => {
               setFormData({ ...formData, email: e.target.value });
@@ -30,7 +30,7 @@ function Login(props) {
           />
           <Input
             type="password"
-            label={t("Password")}
+            label="Password"
             className="w-[450px]"
             onChange={(e) => {
               setFormData({ ...formData, password: e.target.value });
@@ -40,7 +40,7 @@ function Login(props) {
           <Button
             className="text-white bg-blue-500 w-[450px]"
             onPress={() => {
-              navigate("/mode/two/view-my-profile/0");
+              navigate("/mode/three/student/view/9/55176147");
             }}
           >
             {t("Login")}
@@ -51,4 +51,4 @@ function Login(props) {
   );
 }
 
-export default Login;
+export default StudentLogin;

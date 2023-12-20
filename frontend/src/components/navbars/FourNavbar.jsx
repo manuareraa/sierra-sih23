@@ -1,8 +1,10 @@
 import React from "react";
 import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../../utils/AppContext";
 
 function FourNavbar(props) {
+  const { t } = useAppContext();
   const navigate = useNavigate();
   return (
     <>
@@ -12,7 +14,7 @@ function FourNavbar(props) {
           navigate("/mode/four/learning-platform/home");
         }}
       >
-        Home
+        {t("Home")}
       </Button>
       <Button
         className="bg-black/50"
@@ -20,7 +22,7 @@ function FourNavbar(props) {
           navigate("/mode/two/view-my-profile/0");
         }}
       >
-        Verify a Certificate
+        {t("View My Profile")}
       </Button>
     </>
   );

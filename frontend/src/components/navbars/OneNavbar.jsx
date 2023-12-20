@@ -1,8 +1,10 @@
 import React from "react";
 import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../../utils/AppContext";
 
 function OneNavbar(props) {
+  const { t } = useAppContext();
   const navigate = useNavigate();
   return (
     <>
@@ -12,7 +14,7 @@ function OneNavbar(props) {
           navigate("/mode/one/recruit");
         }}
       >
-        New Recruit
+        {t("New Recruit")}
       </Button>
       <Button
         className=""
@@ -20,7 +22,7 @@ function OneNavbar(props) {
           navigate("/mode/one/teachers");
         }}
       >
-        Teachers
+        {t("Teachers")}
       </Button>
     </>
   );

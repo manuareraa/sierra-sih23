@@ -1,8 +1,10 @@
 import React from "react";
 import { Button } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../../utils/AppContext";
 
 function TwoNavbar(props) {
+  const { t } = useAppContext();
   const navigate = useNavigate();
   return (
     <>
@@ -12,7 +14,7 @@ function TwoNavbar(props) {
           navigate("/mode/two/login");
         }}
       >
-        Teacher Login
+        {t("Teacher Login")}
       </Button>
       <Button
         className=""
@@ -20,7 +22,7 @@ function TwoNavbar(props) {
           navigate("/mode/two/view-my-profile/0");
         }}
       >
-        View My Profile
+        {t("View My Profile")}
       </Button>
     </>
   );

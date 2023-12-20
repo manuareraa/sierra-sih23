@@ -69,12 +69,66 @@ app.post("/add-new-material", (req, res) => {
   }
 });
 
+app.post("/attempt-new-material", (req, res) => {
+  console.log("POST /attempt-new-material", req.body);
+  try {
+    const { material } = req.body;
+    const db = client.db("sierra-sih23");
+    const collection = db.collection("attempt");
+    collection.insertOne(material);
+    res.status(200).send({ status: true });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ status: false });
+  }
+});
+
+app.get("/get-all-attempts", async (req, res) => {
+  console.log("POST /get-all-attempts", req.body);
+  try {
+    console.log("Connected to mongo");
+    const mats = await db
+      .collection("attempt")
+      .find({})
+      .sort({ _id: -1 }) // Sorting by _id in descending order
+      .toArray();
+    res.status(200).json({ status: true, data: mats });
+  } catch (error) {
+    console.error(error); // Using console.error for better error logging
+    res.status(500).send({ status: false });
+  }
+});
+
 app.get("/get-all-materials", async (req, res) => {
   console.log("POST /get-all-materials", req.body);
   try {
     console.log("Connected to mongo");
     const mats = await db.collection("sharing").find({}).toArray();
     res.status(200).json({ status: true, data: mats });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ status: false });
+  }
+});
+
+app.post("/add-new-insight", async (req, res) => {
+  try {
+    const { insight } = req.body;
+    const db = client.db("sierra-sih23");
+    const collection = db.collection("insights");
+    collection.insertOne(insight);
+    res.status(200).send({ status: true });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ status: false });
+  }
+});
+
+app.get("/get-all-insights", async (req, res) => {
+  console.log("POST /get-all-insights", req.body);
+  try {
+    const ins = await db.collection("insights").find({}).toArray();
+    res.status(200).json({ status: true, data: ins });
   } catch (error) {
     console.log(error);
     res.status(500).send({ status: false });

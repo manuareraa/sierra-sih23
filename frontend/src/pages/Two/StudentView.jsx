@@ -16,7 +16,7 @@ import {
 import studentIcon from "../../assets/img/studentIcon.svg";
 
 function StudentView(props) {
-  const { appState, mode, setMode } = useAppContext();
+  const { appState, mode, setMode, t } = useAppContext();
   const navigate = useNavigate();
   const { studentId, selectedClass } = useParams();
   const [student, setStudent] = useState({});
@@ -63,7 +63,7 @@ function StudentView(props) {
     <div className="flex flex-col items-center justify-center w-full h-full p-8 py-10 ">
       {/* title */}
       <div className="">
-        <p className="my-4 text-xl font-bold">Student Profile</p>
+        <p className="my-4 text-xl font-bold">{t("Student Profile")}</p>
       </div>
       <div className="divider"></div>
 
@@ -72,11 +72,11 @@ function StudentView(props) {
         <div className="flex flex-row gap-x-8">
           <img src={studentIcon} className="w-40 h-40" />
           <div className="grid grid-cols-2 gap-y-2 gap-x-4">
-            Name: <span className="font-bold">{student.name}</span>
-            Class: <span className="font-bold">{student.class}</span>
+            {t("Name")}: <span className="font-bold">{student.name}</span>
+            (t{"Class"}): <span className="font-bold">{student.class}</span>
             DOB: <span className="font-bold">{student.dob}</span>
-            Gender: <span className="font-bold">{student.gender}</span>
-            Age: <span className="font-bold">{student.age}</span>
+            {t("Gender")}: <span className="font-bold">{student.gender}</span>
+            {t("Age")}: <span className="font-bold">{student.age}</span>
           </div>
         </div>
 
@@ -137,18 +137,18 @@ function StudentView(props) {
         <div>
           <div className="flex flex-col items-center justify-center w-full my-6">
             <p className="font-bold underline underline-offset-2">
-              CARS Score Card
+              CARS {t("Score Card")}
             </p>
           </div>
           <div className="overflow-x-auto">
             <table className="table table- table-pin-rows table-pin-cols">
               <thead>
                 <tr>
-                  <th>Subject</th>
-                  <td>One-to-One</td>
-                  <td>Online</td>
-                  <td>Project</td>
-                  <td>Total</td>
+                  <th>{t("Subject")}</th>
+                  <td>{t("One-to-One")}</td>
+                  <td>{t("Online")}</td>
+                  <td>{t("Project")}</td>
+                  <td>{t("Total")}</td>
                   <th></th>
                 </tr>
               </thead>
@@ -209,14 +209,14 @@ function StudentView(props) {
         <div>
           <div className="flex flex-col items-center justify-center w-full my-6">
             <p className="font-bold underline underline-offset-2">
-              Marks Score Card
+              {t("Marks Score Card")}
             </p>
           </div>
           <div className="overflow-x-auto">
             <table className="table table- table-pin-rows table-pin-cols">
               <thead>
                 <tr>
-                  <th>Subject</th>
+                  <th>{t("Subject")}</th>
                   <td>Term I</td>
                   <td>Term II</td>
                   <td>Term III</td>
@@ -282,7 +282,9 @@ function StudentView(props) {
 
       {/* monitor student activity */}
       <div className="flex flex-col items-center justify-center w-full my-6">
-        <p className="font-bold underline underline-offset-2">Your Activity</p>
+        <p className="font-bold underline underline-offset-2">
+          {t("Your Activity")}
+        </p>
 
         <div className="mt-8">
           <div className="overflow-x-auto">
@@ -291,20 +293,20 @@ function StudentView(props) {
               <thead>
                 <tr>
                   <th></th>
-                  <th>Category</th>
-                  <th>Status</th>
-                  <th>CARS Score</th>
-                  <th>Activity</th>
+                  <th>{t("Category")}</th>
+                  <th>{t("Status")}</th>
+                  <th>CARS {t("Score")}</th>
+                  <th>{t("Activity")}</th>
                 </tr>
               </thead>
               <tbody>
                 {/* row 1 */}
                 <tr className="hover">
                   <th>1</th>
-                  <td>Project-based Learning</td>
+                  <td>{t("Project-based Learning")}</td>
                   <td>
                     <span className="p-1 px-2 text-sm text-white bg-green-500 rounded-lg">
-                      Active
+                      {t("Active")}
                     </span>
                   </td>
                   <td>7.56</td>
@@ -322,17 +324,17 @@ function StudentView(props) {
                         );
                       }}
                     >
-                      Submit Project
+                      {t("Submit Project")}
                     </Button>
                   </td>
                 </tr>
                 {/* row 2 */}
                 <tr className="hover">
                   <th>2</th>
-                  <td>Online Learning</td>
+                  <td>{t("Online Learning")}</td>
                   <td>
                     <span className="p-1 px-2 text-sm text-white rounded-lg bg-violet-500">
-                      Next
+                      {t("Next")}
                     </span>
                   </td>
                   <td>6.79</td>
@@ -350,17 +352,17 @@ function StudentView(props) {
                         );
                       }}
                     >
-                      Go To Portal
+                      {t("Go To Portal")}
                     </Button>
                   </td>
                 </tr>
                 {/* row 3 */}
                 <tr className="hover">
                   <th>3</th>
-                  <td>1-to-1 Learning</td>
+                  <td>1-to-1{t("Learning")}</td>
                   <td>
                     <span className="p-1 px-2 text-sm text-white bg-gray-500 rounded-lg">
-                      Upcoming
+                      {t("Upcoming")}
                     </span>
                   </td>
                   <td>9.21</td>
@@ -378,7 +380,7 @@ function StudentView(props) {
                         );
                       }}
                     >
-                      See Schedule
+                      {t("See Schedule")}
                     </Button>
                   </td>
                 </tr>
@@ -393,14 +395,14 @@ function StudentView(props) {
       {/* student history */}
       <div className="flex flex-col items-center justify-center w-full my-6">
         <p className="font-bold underline underline-offset-2">
-          Student History
+          {t("Student History")}
         </p>
 
         <div className="flex flex-row items-start gap-x-16">
           {/* activity history */}
           <div className="mt-8">
             <p className="flex flex-col items-center justify-center font-bold underline underline-offset-2">
-              Activity History
+              {t("Activity History")}
             </p>
             <div className="mt-8 overflow-x-auto">
               <table className="table">
@@ -408,21 +410,21 @@ function StudentView(props) {
                 <thead>
                   <tr>
                     <th></th>
-                    <th>Activity</th>
-                    <th>Timestamp</th>
-                    <th>Category</th>
-                    <th>CARS Score</th>
+                    <th>{t("Activity")}</th>
+                    <th>{t("Timestamp")}</th>
+                    <th>{t("Category")}</th>
+                    <th>CARS {t("Score")}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {/* row 1 */}
                   <tr>
                     <th>1</th>
-                    <td>Completed "Everyday Math"</td>
+                    <td>{t("Completed")} "Everyday Math"</td>
                     <td>10/10/2021</td>
                     <td>
                       <span className="p-1 px-2 text-sm text-white bg-green-500 rounded-lg">
-                        Project
+                        {t("Project")}
                       </span>
                     </td>
                     <td className="font-bold text-red-500">
@@ -443,7 +445,7 @@ function StudentView(props) {
                           );
                         }}
                       >
-                        View Certificate
+                        {t("View Certificate")}
                       </Button>
                     </td>
                   </tr>
@@ -451,7 +453,7 @@ function StudentView(props) {
                   {/* row 2 */}
                   <tr className="hover">
                     <th>2</th>
-                    <td>Certification for Organic Chemistry Course</td>
+                    <td>{t("Certification")} for Organic Chemistry Course</td>
                     <td>10/10/2021</td>
                     <td>
                       <span className="p-1 px-2 text-sm text-white rounded-lg bg-violet-500">
@@ -477,7 +479,7 @@ function StudentView(props) {
                           );
                         }}
                       >
-                        View Certificate
+                        {t("View Certificate")}
                       </Button>
                     </td>
                   </tr>
@@ -485,7 +487,7 @@ function StudentView(props) {
                   {/* row 3 */}
                   <tr>
                     <th>3</th>
-                    <td>Completed "Intro to Geology" Course</td>
+                    <td>{t("Completed")} "Intro to Geology" Course</td>
                     <td>10/10/2021</td>
                     <td>
                       <span className="p-1 px-2 text-sm text-white rounded-lg bg-violet-500">
@@ -510,7 +512,7 @@ function StudentView(props) {
                           );
                         }}
                       >
-                        View Certificate
+                        {t("View Certificate")}
                       </Button>
                     </td>
                   </tr>
@@ -522,7 +524,7 @@ function StudentView(props) {
           {/* education history */}
           <div className="mt-8">
             <p className="flex flex-col items-center justify-center font-bold underline underline-offset-2">
-              Education History
+              {t("Education History")}
             </p>
             <div className="mt-8 overflow-x-auto">
               <table className="table">
@@ -530,10 +532,10 @@ function StudentView(props) {
                 <thead>
                   <tr>
                     <th></th>
-                    <th>Name</th>
-                    <th>Qualification</th>
+                    <th>{t("Name")}</th>
+                    <th>{t("Qualification")}</th>
                     <th>SID</th>
-                    <th>Certificate</th>
+                    <th>{t("Certificate")}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -557,7 +559,7 @@ function StudentView(props) {
                           );
                         }}
                       >
-                        View
+                        {t("View")}
                       </Button>
                     </td>
                   </tr>
@@ -581,7 +583,7 @@ function StudentView(props) {
                           );
                         }}
                       >
-                        View
+                        {t("View")}
                       </Button>
                     </td>
                   </tr>
@@ -605,7 +607,7 @@ function StudentView(props) {
                           );
                         }}
                       >
-                        View
+                        {t("View")}
                       </Button>
                     </td>
                   </tr>

@@ -6,6 +6,8 @@ import "./index.css";
 import { NextUIProvider } from "@nextui-org/react";
 import { BrowserRouter } from "react-router-dom";
 
+import "./i18n.js";
+
 if (import.meta.VITE_ENV === "development") {
   console.log = () => {};
 }
