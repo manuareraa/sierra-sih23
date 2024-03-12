@@ -229,7 +229,7 @@ function StudentViewThree(props) {
                   ></path>
                 </svg>
               </div>
-              <div className="stat-title">SBT ID</div>
+              <div className="stat-title">EMIS ID</div>
               <div className="stat-value text-primary">
                 {parseInt(appState.studentData.tokenId)}
               </div>

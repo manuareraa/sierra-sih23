@@ -1,0 +1,61 @@
+"filename", "language", "HTML", "JavaScript", "CSS", "JSON", "Markdown", "XML", "JavaScript JSX", "Properties", "Solidity", "comment", "blank", "total"
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/README.md", "Markdown", 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 4, 9
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/index.html", "HTML", 25, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 28
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/package-lock.json", "JSON", 0, 0, 0, 13747, 0, 0, 0, 0, 0, 0, 1, 13748
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/package.json", "JSON", 0, 0, 0, 54, 0, 0, 0, 0, 0, 0, 1, 55
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/postcss.config.js", "JavaScript", 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/public/vite.svg", "XML", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/App.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/App.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 65, 0, 0, 7, 10, 82
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/assets/img/studentIcon.svg", "XML", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/assets/react.svg", "XML", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/assets/svg/done.svg", "XML", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/assets/svg/loading.svg", "XML", 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 10
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/assets/svg/location.svg", "XML", 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 5
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/assets/svg/tick.svg", "XML", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/components/Navbar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 161, 0, 0, 9, 7, 177
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/components/loader/Loading.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 10, 0, 0, 2, 4, 16
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/components/navbars/FiveNavbar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 29, 0, 0, 0, 3, 32
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/components/navbars/FourNavbar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 29, 0, 0, 0, 3, 32
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/components/navbars/OneNavbar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 29, 0, 0, 0, 3, 32
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/components/navbars/SixNavbar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 21, 0, 0, 8, 3, 32
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/components/navbars/ThreeNavbar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 21, 0, 0, 8, 3, 32
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/components/navbars/TwoNavbar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 29, 0, 0, 0, 3, 32
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/components/navbars/ZeroNavbar.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 3, 11
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/data/schools.js", "JavaScript", 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 1, 34
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/data/students.js", "JavaScript", 0, 3881, 0, 0, 0, 0, 0, 0, 0, 52, 51, 3984
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/i18n.js", "JavaScript", 0, 322, 0, 0, 0, 0, 0, 0, 0, 0, 3, 325
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/index.css", "CSS", 0, 0, 24, 0, 0, 0, 0, 0, 0, 4, 7, 35
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/locales/en.js", "JavaScript", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/locales/en/messages.js", "JavaScript", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/locales/hi.js", "JavaScript", 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 4
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/locales/hi/messages.js", "JavaScript", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/main.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 19, 0, 0, 0, 5, 24
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/pages/Five/ContentCreation.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 901, 0, 0, 36, 47, 984
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/pages/Five/ContentSearch.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 229, 0, 0, 26, 18, 273
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/pages/Five/QPPDFViewer.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 28, 0, 0, 1, 4, 33
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/pages/Four/LearningPlatformHome.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 780, 0, 0, 35, 47, 862
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/pages/Homepage.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 103, 0, 0, 8, 10, 121
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/pages/One/Recruit.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 128, 0, 0, 1, 7, 136
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/pages/One/TeacherView.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 289, 0, 0, 30, 29, 348
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/pages/One/Teachers.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 79, 0, 0, 9, 7, 95
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/pages/Three/StudentLogin.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 49, 0, 0, 1, 5, 55
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/pages/Three/StudentViewThree.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 751, 0, 0, 37, 33, 821
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/pages/Two/Login.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 49, 0, 0, 1, 5, 55
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/pages/Two/StudentView.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 567, 0, 0, 33, 25, 625
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/pages/Two/ViewMyProfile.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 970, 0, 0, 181, 59, 1210
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/pages/verify/VerifyCert.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 39, 0, 0, 1, 5, 45
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/pages/verify/VerifyCertView.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 3, 11
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/pages/verify/VerifySbt.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 39, 0, 0, 1, 5, 45
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/pages/verify/VerifySbtView.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 3, 11
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/smart-contract/abi.json", "JSON", 0, 0, 0, 830, 0, 0, 0, 0, 0, 0, 0, 830
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/smart-contract/sbt-student.sol", "Solidity", 0, 0, 0, 0, 0, 0, 0, 0, 158, 36, 26, 220
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/smart-contract/studentAbi.json", "JSON", 0, 0, 0, 1004, 0, 0, 0, 0, 0, 0, 0, 1004
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/translation/languages.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 1, 5
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/utils/AppContext.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 1638, 0, 0, 21, 56, 1715
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/utils/PrivateRouteGuard.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 12, 0, 0, 1, 4, 17
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/utils/pyvenv.cfg", "Properties", 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 1, 9
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/src/utils/tools.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 3, 11
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/tailwind.config.js", "JavaScript", 0, 13, 0, 0, 0, 0, 0, 0, 0, 2, 2, 17
+"/home/manuareraa/Personal/github/personal/sierra-sih23/frontend/vite.config.js", "JavaScript", 0, 25, 0, 0, 0, 0, 0, 0, 0, 1, 2, 28
+"Total", "-", 25, 4286, 24, 15635, 5, 20, 7100, 8, 158, 553, 527, 28341

@@ -92,7 +92,6 @@ function ContentCreation(props) {
   const [difficultyLevel, setDifficultyLevel] = useState("");
   const [chapter, setChapter] = useState("");
   const [indiCards, setIndiCards] = useState("");
-
   const [overallIns, setOverallIns] = useState("");
   const [insBundle, setInsBundle] = useState([]);
   const [fetchOI, setFetchingOI] = useState(false);
@@ -327,7 +326,7 @@ function ContentCreation(props) {
                 <th>
                   <p className="font-bold">CARS {t("Score")}</p>
                 </th>
-                <th>SBT ID</th>
+                <th>EMIS ID</th>
                 <th>{t("Generate")}</th>
                 <th>{t("View")}</th>
               </tr>
@@ -978,6 +977,7 @@ function ContentCreation(props) {
       </dialog>
     </div>
   );
+
 }
 
 export default ContentCreation;

@@ -129,7 +129,7 @@ function ViewMyProfile(props) {
                     ></path>
                   </svg>
                 </div>
-                <div className="stat-title">SBT ID</div>
+                <div className="stat-title">EMIS ID</div>
                 <div className="stat-value text-primary">{teacher.tokenId}</div>
                 {/* <div className="stat-desc">21% more than last month</div> */}
               </div>
@@ -477,7 +477,7 @@ function ViewMyProfile(props) {
                     <th>
                       <p className="font-bold">CARS {t("Score")}</p>
                     </th>
-                    <th>SBT ID</th>
+                    <th>EMIS ID</th>
                     <th>{t("View")}</th>
                   </tr>
                 </thead>

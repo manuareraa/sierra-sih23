@@ -36,7 +36,7 @@ function Teachers(props) {
                 <th>
                   {t("DOB")}
                 </th>
-                <th>SBT ID</th>
+                <th>EMIS ID</th>
                 <th>
                   {t("Experience")}
                 </th>
